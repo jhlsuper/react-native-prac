@@ -1,47 +1,53 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
-
+import {Button, StyleSheet, Text, View, Image} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import BottomNavigation from './components/bottomNavigation';
-const HomeScreen = ({navigation}) => {
-  return (
-    <View style={styles.screen}>
-      <Text>Home screen</Text>
-      <Button
-        title="랭킹 화면"
-        onPress={() => navigation.navigate('Ranking')}
-      />
-    </View>
-  );
-};
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import RankingScreen from './components/ranking';
+import HomeScreen from './components/home';
+import MyPageScreen from './components/myPage';
+import StatisticsScreen from './components/ statistics';
 
-const RankingScreen = ({navigation}) => {
-  return (
-    <View style={styles.screen}>
-      <Text>랭킹 화면</Text>
-      <Button title="랭킹 화면" onPress={() => navigation.push('Ranking')} />
-      <Button title="홈 화면" onPress={() => navigation.navigate('Home')} />
-      <Button title="뒤로 가기" onPress={() => navigation.goBack()} />
-      <Button
-        title="스택 첫 화면으로 가기"
-        onPress={() => navigation.popToTop()}
-      />
-    </View>
-  );
-};
+const Tab = createBottomTabNavigator();
 
-const Stack = createStackNavigator();
 const App = () => {
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        {}
+        <Tab.Navigator
+          screenOptions={({route}) => ({
+            tabBarIcon: ({focused, color, size}) => {
+              let iconName;
+              if (route.name === 'Home') {
+                iconName = focused
+                  ? require('./assets/images/home_ch.png')
+                  : require('./assets/images/home_un.png');
+              } else if (route.name === 'Ranking') {
+                iconName = focused
+                  ? require('./assets/images/ranking_ch.png')
+                  : require('./assets/images/ranking_un.png');
+              } else if (route.name === 'Statisctics') {
+                iconName = focused
+                  ? require('./assets/images/calendar_ch.png')
+                  : require('./assets/images/calendar_un.png');
+              } else if (route.name === 'MyPage') {
+                iconName = focused
+                  ? require('./assets/images/user_ch.png')
+                  : require('./assets/images/user_un.png');
+              }
 
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Ranking" component={RankingScreen} />
-        </Stack.Navigator>
+              return (
+                <Image source={iconName} style={{width: 25, height: 25}} />
+              );
+            },
+          })}>
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Ranking" component={RankingScreen} />
+          <Tab.Screen name="Statisctics" component={StatisticsScreen} />
+          <Tab.Screen name="MyPage" component={MyPageScreen} />
+        </Tab.Navigator>
       </NavigationContainer>
     </View>
   );
@@ -55,6 +61,17 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  bottom: {
+    flexDirection: 'row',
+
+    marginBottom: 20,
+
+    justifyContent: 'space-evenly',
+  },
+  buttons: {
+    flex: 1,
+    alignItems: 'baseline',
   },
 });
 
