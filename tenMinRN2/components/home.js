@@ -1,7 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 
-import Animated from 'react-native-reanimated';
 import Timer from './Timer';
 
 const HomeScreen = ({navigation}) => {
