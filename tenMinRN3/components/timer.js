@@ -4,18 +4,21 @@ import {Text, StyleSheet, View, TouchableOpacity, Button} from 'react-native';
 
 // var _interval;
 
-const Timer = ({sec}) => {
-  const [second, setSecond] = useState(parseInt(sec));
+const Timer = props => {
+  const [second, setSecond] = useState(parseInt(props.sec));
   const [delay, setDelay] = useState(1000);
   const [isRunning, setIsRunning] = useState(false);
   const [btnText, setbtnText] = useState('시작하기');
   useEffect(() => {
     if (second == 0) {
       if (second == 0) {
-        setSecond(sec);
+        setSecond(props.sec);
         setDelay(1000);
       }
       console.log('its done');
+      //   cnt++;
+      props.addCount();
+      console.log(props.cnt);
       setIsRunning(false);
       setbtnText('다시하기');
     }
@@ -27,7 +30,8 @@ const Timer = ({sec}) => {
         setSecond(second - 1);
         setbtnText('포기하기');
       } else {
-        setSecond(sec);
+        setSecond(props.sec);
+        setbtnText('시작하기');
       }
     },
     second >= 1 ? delay : null,

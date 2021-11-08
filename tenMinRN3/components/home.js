@@ -8,19 +8,15 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.screen}>
-      <Timer sec={10} />
+      <Timer sec={3} cnt={count} addCount={() => setCounts(count + 1)} />
 
       <Text style={styles.text}>{/* {minute}분 {r_second}초 */}</Text>
 
-      <Button title="시간 바꾸기" onPress={btn} />
+      {/* <Button title="시간 바꾸기" onPress={btn} /> */}
       <Text>{count} 번 완료.</Text>
     </View>
   );
 };
-
-function btn() {
-  return <Timer sec={1000} />;
-}
 
 const styles = StyleSheet.create({
   screen: {
