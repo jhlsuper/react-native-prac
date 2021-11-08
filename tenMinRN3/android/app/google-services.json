@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "646047715818",
+    "project_id": "tenmin-398be",
+    "storage_bucket": "tenmin-398be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646047715818:android:5e0c1ef6ba116484ac2293",
+        "android_client_info": {
+          "package_name": "com.tenminrn3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646047715818-g8bkpe6jaembf3e05vum3h7d4l20qdq0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfwqhYigtC4OF7VVQgrWXeFTWrTmFHDSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646047715818-g8bkpe6jaembf3e05vum3h7d4l20qdq0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

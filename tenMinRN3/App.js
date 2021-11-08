@@ -7,7 +7,6 @@ import HomeScreen from './components/home';
 import RankingScreen from './components/ranking';
 import MyPageScreen from './components/myPage';
 import StatisticsScreen from './components/ statistics';
-
 const Tab = createBottomTabNavigator();
 
 const App = () => {
