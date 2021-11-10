@@ -11,25 +11,31 @@ import {
 } from 'react-native';
 import AuthLogo from './authLogo';
 import AuthForm from './authForm';
-function AuthComponent() {
+import {Component} from 'react';
+class AuthComponent extends Component {
   state = {
     loading: false,
   };
-  if (this.state.loading) {
-    return (
-      <View style={styles.loading}>
-        <ActivityIndicator />
-      </View>
-    );
-  } else {
-    return (
-      <ScrollView style={styles.container}>
-        <View>
-          <AuthLogo />
-          <AuthForm />
+  goWithoutLogin = () => {
+    this.props.navigation.navigate('AppTabComponent');
+  };
+  render() {
+    if (this.state.loading) {
+      return (
+        <View style={styles.loading}>
+          <ActivityIndicator />
         </View>
-      </ScrollView>
-    );
+      );
+    } else {
+      return (
+        <ScrollView style={styles.container}>
+          <View>
+            <AuthLogo />
+            <AuthForm goWithoutLogin={this.goWithoutLogin} />
+          </View>
+        </ScrollView>
+      );
+    }
   }
 }
 
