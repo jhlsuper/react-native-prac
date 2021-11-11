@@ -5,9 +5,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 //Screens
 
 import SignIn from './components/auth';
-import Diary from './components/diary';
+import Timer from './components/timer';
 import News from './components/news';
-
+import Stats from './components/statistics';
 const AuthStack = createStackNavigator();
 const MainScreenTab = createBottomTabNavigator();
 
@@ -26,8 +26,9 @@ const isLoggedIn = false;
 const AppTabComponent = () => {
   return (
     <MainScreenTab.Navigator>
-      <MainScreenTab.Screen name="Diray" component={Diary} />
+      <MainScreenTab.Screen name="Timer" component={Timer} />
       <MainScreenTab.Screen name="News" component={News} />
+      <MainScreenTab.Screen name="Statiscs" component={Stats} />
     </MainScreenTab.Navigator>
   );
 };

@@ -1,13 +1,18 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-
+import {SIGN_IN, SIGN_UP} from '../../store/types';
 import {StyleSheet, View, Text, Button, Platform} from 'react-native';
 import Input from '../../utils/forms/input';
 import {Component} from 'react';
 
 import ValidationRules from '../../utils/forms/validationRules';
-
+import {thisExpression} from '@babel/types';
+// import firebase, {auth} from 'react-native-firebase';
+import {connect} from 'react-redux';
+// import {signIn, signUp} from '../../store/actions/user_actions';
+import {bindActionCreators} from 'redux';
+import {sub} from 'react-native-reanimated';
 class AuthForm extends Component {
   state = {
     type: '로그인', //로그인 / 등록
@@ -78,6 +83,76 @@ class AuthForm extends Component {
       actionMode: type === '로그인' ? '로그인 화면으로' : '회원가입',
     });
   };
+  signIn = data => {
+    console.log(data);
+
+    return {
+      type: SIGN_IN,
+      payload: {
+        email: data.email,
+        token: data.password, //로그인 상태를 토큰으로 저장
+      },
+    };
+  };
+  signUp = data => {
+    // auth()
+    //   .createUserWithEmailAndPassword(data.email, data.password)
+    //   .then(() => {
+    //     console.log('User account create &signed in!');
+    //   })
+    //   .catch(error => {
+    //     if (error.code === 'auth/email-already-in-use') {
+    //       console.log('That email address is already in use!');
+    //     }
+    //     if (error.code === 'auth/invalid-email') {
+    //       console.log('That email address is invalid!');
+    //     }
+    //     console.error(error);
+    //   });
+
+    console.log(data);
+
+    return {
+      type: SIGN_UP,
+      payload: request,
+    };
+  };
+
+  submitUser = () => {
+    let isFormValid = true;
+    let submittedForm = {};
+    const formCopy = this.state.form;
+
+    for (let key in formCopy) {
+      if (this.state.type === '로그인') {
+        if (key !== 'confirmPassword') {
+          isFormValid = isFormValid && formCopy[key].valid;
+          submittedForm[key] = formCopy[key].value;
+        }
+      } else {
+        isFormValid = isFormValid && formCopy[key].valid;
+        submittedForm[key] = formCopy[key].value;
+      }
+    }
+    if (isFormValid) {
+      if (this.state.type === '로그인') {
+        console.log({submittedForm});
+        console.log('로그인 버튼 눌림');
+        this.signIn(submittedForm);
+        // this.props.signIn(submittedForm);
+      } else {
+        console.log('등록버튼 눌림');
+        console.log({submittedForm});
+        this.signUp(submittedForm);
+
+        // this.props.signUp(submittedForm);
+      }
+    } else {
+      this.setState({
+        hasErrors: true,
+      });
+    }
+  };
 
   render() {
     return (
@@ -103,7 +178,11 @@ class AuthForm extends Component {
         {this.formHasErros()}
         <View style={{marginTop: 40}}>
           <View style={styles.button}>
-            <Button title={this.state.action} color="#485671" />
+            <Button
+              title={this.state.action}
+              color="#485671"
+              onPress={this.submitUser}
+            />
           </View>
           <View style={styles.button}>
             <Button
@@ -160,4 +239,15 @@ const styles = StyleSheet.create({
   },
 });
 
+function mapStateToProps(state) {
+  return {
+    User: state.User,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({signIn, signUp}, dispatch);
+}
+
+// export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);
 export default AuthForm;
