@@ -1,33 +1,35 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
+import React, {useState, useEffect, useReducer} from 'react';
+import {View, Text, Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-function Auth() {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+export const signUp = props => {
+  auth()
+    .createUserWithEmailAndPassword(props.email, props.password)
+    .then(() => {
+      console.log('User account create &signed in!');
+    })
+    .catch(error => {
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+      }
+      if (error.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+      }
+      alert(error);
+    });
 
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
-  if (initializing) return null;
+  console.log(Response);
+};
 
-  if (!user) {
-    return (
-      <View>
-        <Text>Login</Text>
-      </View>
-    );
-  }
-
-  return (
-    <View>
-      <Text>Welcome {user.email}</Text>
-    </View>
-  );
-}
-export default Auth;
+export const signIn = props => {
+  auth()
+    .signInWithEmailAndPassword(props.email, props.password)
+    .then(() => {
+      console.log('로그인완료');
+      return true;
+    })
+    .catch(error => {
+      alert(error);
+    });
+  return false;
+};

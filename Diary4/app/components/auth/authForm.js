@@ -8,8 +8,9 @@ import ValidationRules from '../../utils/forms/validationRules';
 import {thisExpression} from '@babel/types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {sub} from 'react-native-reanimated';
+import {signUp, signIn} from './firebaseAuth';
 import auth from '@react-native-firebase/auth';
+
 class AuthForm extends Component {
   state = {
     type: '로그인', //로그인 / 등록
@@ -80,40 +81,6 @@ class AuthForm extends Component {
       actionMode: type === '로그인' ? '로그인 화면으로' : '회원가입',
     });
   };
-  signIn = data => {
-    console.log(data);
-
-    return {
-      type: SIGN_IN,
-      payload: {
-        email: data.email,
-        token: data.password, //로그인 상태를 토큰으로 저장
-      },
-    };
-  };
-  signUp = data => {
-    auth()
-      .createUserWithEmailAndPassword(data.email, data.password)
-      .then(() => {
-        console.log('User account create &signed in!');
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-        console.error(error);
-      });
-
-    console.log(data);
-
-    return {
-      type: SIGN_UP,
-      // payload: request,
-    };
-  };
 
   submitUser = () => {
     let isFormValid = true;
@@ -134,14 +101,14 @@ class AuthForm extends Component {
     if (isFormValid) {
       if (this.state.type === '로그인') {
         console.log({submittedForm});
-        console.log('로그인 버튼 눌림');
-        this.signIn(submittedForm);
-        // this.props.signIn(submittedForm);
+        if (signIn(submittedForm) == true) {
+          this.props.goWithoutLogin();
+        }
+        this.props.goWithoutLogin();
       } else {
-        console.log('등록버튼 눌림');
         console.log({submittedForm});
-        this.signUp(submittedForm);
-
+        // this.signUp(submittedForm);
+        signUp(submittedForm);
         // this.props.signUp(submittedForm);
       }
     } else {

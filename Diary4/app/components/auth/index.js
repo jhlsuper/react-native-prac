@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {
@@ -15,9 +15,14 @@ import {Component} from 'react';
 class AuthComponent extends Component {
   state = {
     loading: false,
+    authenticated: false,
   };
+
   goWithoutLogin = () => {
     this.props.navigation.navigate('AppTabComponent');
+  };
+  authUser = () => {
+    this.state.authenticated = !authenticated;
   };
   render() {
     if (this.state.loading) {
@@ -27,15 +32,22 @@ class AuthComponent extends Component {
         </View>
       );
     } else {
-      return (
-        <ScrollView style={styles.container}>
-          <View>
-            <AuthLogo />
+      if (this.state.authenticated) {
+        this.goWithoutLogin();
+      } else {
+        return (
+          <ScrollView style={styles.container}>
+            <View>
+              <AuthLogo />
 
-            <AuthForm goWithoutLogin={this.goWithoutLogin} />
-          </View>
-        </ScrollView>
-      );
+              <AuthForm
+                goWithoutLogin={this.goWithoutLogin}
+                authUser={this.authUser}
+              />
+            </View>
+          </ScrollView>
+        );
+      }
     }
   }
 }
