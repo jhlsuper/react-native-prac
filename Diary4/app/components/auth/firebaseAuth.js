@@ -6,14 +6,14 @@ export const signUp = props => {
   auth()
     .createUserWithEmailAndPassword(props.email, props.password)
     .then(() => {
-      console.log('User account create &signed in!');
+      alert('User account create &signed in!');
     })
     .catch(error => {
       if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
+        alert('That email address is already in use!');
       }
       if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
+        alert('That email address is invalid!');
       }
       alert(error);
     });

@@ -1,7 +1,8 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootNavigator} from './routes';
+import auth from '@react-native-firebase/app';
 // import firebase, {auth} from 'react-native-firebase';
 import {
   SafeAreaView,
@@ -14,14 +15,12 @@ import {
 } from 'react-native';
 import {Component} from 'react';
 
-class App extends Component {
-  render() {
-    return (
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-    );
-  }
+function App() {
+  return (
+    <NavigationContainer>
+      <RootNavigator />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({});

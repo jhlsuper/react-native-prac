@@ -58,6 +58,9 @@ const Timer = props => {
 
   return (
     <View style={styles.press}>
+      <Pressable style={styles.press} onPress={props.logOut}>
+        <Text>log out</Text>
+      </Pressable>
       <Text style={styles.text}>
         {' '}
         {Math.floor(second / 60)} 분 : {second % 60} 초

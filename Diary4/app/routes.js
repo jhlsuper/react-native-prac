@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import auth from '@react-native-firebase/auth';
 
 //Screens
 
@@ -8,6 +9,7 @@ import SignIn from './components/auth';
 import Timer from './components/timer';
 import News from './components/news';
 import Stats from './components/statistics';
+import {sub} from 'react-native-reanimated';
 const AuthStack = createStackNavigator();
 const MainScreenTab = createBottomTabNavigator();
 
@@ -34,6 +36,19 @@ const AppTabComponent = () => {
 };
 
 export const RootNavigator = () => {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+  useEffect(() => {
+    const subcsriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subcsriber;
+  }, []);
+  if (initializing) return null;
+
   return (
     <AuthStack.Navigator screenOptions={{headerShown: false}}>
       {isLoggedIn ? (
