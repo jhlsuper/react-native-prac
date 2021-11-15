@@ -104,7 +104,7 @@ class AuthForm extends Component {
         if (signIn(submittedForm) == true) {
           this.props.goWithoutLogin();
         }
-        this.props.goWithoutLogin();
+        // this.props.goWithoutLogin();
       } else {
         console.log({submittedForm});
         // this.signUp(submittedForm);

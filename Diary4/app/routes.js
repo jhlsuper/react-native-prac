@@ -9,6 +9,7 @@ import SignIn from './components/auth';
 import Timer from './components/timer';
 import News from './components/news';
 import Stats from './components/statistics';
+import MyPage from './components/mypage';
 import {sub} from 'react-native-reanimated';
 const AuthStack = createStackNavigator();
 const MainScreenTab = createBottomTabNavigator();
@@ -31,6 +32,7 @@ const AppTabComponent = () => {
       <MainScreenTab.Screen name="Timer" component={Timer} />
       <MainScreenTab.Screen name="News" component={News} />
       <MainScreenTab.Screen name="Statiscs" component={Stats} />
+      <MainScreenTab.Screen name="MyPage" component={MyPage} />
     </MainScreenTab.Navigator>
   );
 };
@@ -47,11 +49,11 @@ export const RootNavigator = () => {
     const subcsriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subcsriber;
   }, []);
-  if (initializing) return null;
+  // if (initializing) return null;
 
   return (
     <AuthStack.Navigator screenOptions={{headerShown: false}}>
-      {isLoggedIn ? (
+      {user ? ( //isloggedin 이였다.
         <AuthStack.Screen name="Main" component={AppTabComponent} />
       ) : (
         <>
