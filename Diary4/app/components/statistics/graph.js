@@ -12,8 +12,7 @@ import {BarChart, ContributionGraph} from 'react-native-chart-kit';
 import firestore from '@react-native-firebase/firestore';
 import _, {forEach} from 'underscore';
 import auth from '@react-native-firebase/auth';
-import {set} from 'lodash';
-import {not} from 'react-native-reanimated';
+
 const user = auth().currentUser;
 const loggedEmail = user.email;
 const emptyList = [];
@@ -31,7 +30,7 @@ const Graph = () => {
           .doc(email)
           .get()
           .then(querySnapshot => {
-            const {data, userEmail} = querySnapshot.data();
+            const {data} = querySnapshot.data();
             data.forEach(item => {
               console.log(item);
 
@@ -50,6 +49,7 @@ const Graph = () => {
     };
     console.log('test2');
     fetchData(loggedEmail);
+    // fetchData('4GsKgwJ4cFykV1CDd58V');
     console.log('test3');
   }, []);
 
