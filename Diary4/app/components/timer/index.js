@@ -9,6 +9,7 @@ const TimerComponent = () => {
   const [stop, setStop] = React.useState(false);
   const [count, setCounts] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.screen}>
       <View style={styles.flex1}>
