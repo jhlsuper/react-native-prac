@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
+  ActivityIndicator,
   Button,
   TextInput,
   Text,
@@ -8,17 +9,51 @@ import {
   Dimensions,
 } from 'react-native';
 import {BarChart, ContributionGraph} from 'react-native-chart-kit';
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-function getUserDate(documentSnapShot) {
-  return documentSnapShot.get('data');
-}
-
+import _, {forEach} from 'underscore';
+import auth from '@react-native-firebase/auth';
+import {set} from 'lodash';
+import {not} from 'react-native-reanimated';
+const user = auth().currentUser;
+const loggedEmail = user.email;
 const Graph = () => {
-  //   const user = auth().currentUser;
-  const user = async () =>
-    await firestore().collection('users').doc('dlGg7roES3f69GJ1w7tP').get();
-  //   console.log(JSON.stringify(user));
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const emptyList = [];
+  useEffect(() => {
+    const fetchData = async email => {
+      try {
+        const list = [];
+        firestore()
+          .collection('users')
+          .doc(email)
+          .get()
+          .then(querySnapshot => {
+            const {data, userEmail} = querySnapshot.data();
+            data.forEach(item => {
+              list.push(item);
+            });
+            console.log('list', list);
+            setUserData(list);
+            console.log('userData', userData);
+          });
+
+        if (loading) {
+          setLoading(false);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData(loggedEmail);
+  }, []);
+
+  console.log('user finished data', userData);
+  // userData.forEach(item => {
+  //   emptyList.push(item);
+  // });
+  console.log('empty list', emptyList);
+
   const timesaDay = [
     {date: '2021-11-02', count: 1},
     {date: '2021-11-03', count: 2},
@@ -39,6 +74,13 @@ const Graph = () => {
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
   };
+  // if (loading) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <ActivityIndicator />
+  //     </View>
+  //   );
+  // } else {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>통계</Text>
