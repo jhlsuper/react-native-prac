@@ -12,7 +12,6 @@ import {BarChart, ContributionGraph} from 'react-native-chart-kit';
 import firestore from '@react-native-firebase/firestore';
 import _, {forEach} from 'underscore';
 import auth from '@react-native-firebase/auth';
-
 const user = auth().currentUser;
 const loggedEmail = user.email;
 const emptyList = [];
@@ -49,7 +48,6 @@ const Graph = () => {
     };
     console.log('test2');
     fetchData(loggedEmail);
-    // fetchData('4GsKgwJ4cFykV1CDd58V');
     console.log('test3');
   }, []);
 
@@ -60,12 +58,7 @@ const Graph = () => {
   //   emptyList.push(item);
   // });
   console.log('user data', userData);
-  // if (!loading) {
-  //   userData.forEach(item => {
-  //     emptyList.push(item);
-  //   });
-  //   console.log('emptyList', emptyList);
-  // }
+
   const timesaDay = [
     {date: '2021-11-02', count: 1},
     {date: '2021-11-03', count: 2},
@@ -93,6 +86,7 @@ const Graph = () => {
   //     </View>
   //   );
   // } else {
+  console.log(new Date());
   return (
     <View style={styles.container}>
       <Text style={styles.text}>통계</Text>

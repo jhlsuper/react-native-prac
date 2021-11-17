@@ -1,23 +1,29 @@
 import firestore from '@react-native-firebase/firestore';
-export default fetchData = async () => {
-  try {
-    const list = [];
-    firestore()
-      .collection('users')
-      .doc('4GsKgwJ4cFykV1CDd58V')
-      .get()
-      .then(querySnapshot => {
-        console.log(querySnapshot.data());
-        const {data, userEmail} = querySnapshot.data();
-        list.push(data);
+import moment from 'moment';
+export function setDates(userEmail, dateNCount) {
+  firestore()
+    .collection('users')
+    .doc(userEmail)
 
-        setUserData(list);
-        if (loading) {
-          setLoading(false);
-        }
-      });
-  } catch (e) {
-    console.log(e);
-  }
-  return list;
-};
+    .update({
+      data: firestore.FieldValue.arrayUnion(dateNCount),
+    });
+}
+
+export function delDates(userEmail, dateNCount) {
+  firestore()
+    .collection('users')
+    .doc(userEmail)
+    .update({
+      data: firestore.FieldValue.arrayRemove(dateNCount),
+    });
+}
+
+export let todayLong = new Date();
+export let today =
+  todayLong.getFullYear() +
+  '-' +
+  parseInt(todayLong.getMonth() + 1) +
+  '-' +
+  todayLong.getDate();
+export let nextDay = moment(todayLong).add(1, 'day').format('YYYY-MM-DD');
