@@ -1,5 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import moment from 'moment';
+
 export function setDates(userEmail, dateNCount) {
   firestore()
     .collection('users')
@@ -17,6 +18,10 @@ export function delDates(userEmail, dateNCount) {
     .update({
       data: firestore.FieldValue.arrayRemove(dateNCount),
     });
+}
+
+export function newUser(userEmail) {
+  firestore().collection('users').doc(userEmail);
 }
 
 export let todayLong = new Date();

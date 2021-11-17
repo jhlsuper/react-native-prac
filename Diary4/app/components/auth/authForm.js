@@ -9,7 +9,7 @@ import {thisExpression} from '@babel/types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {signUp, signIn} from './firebaseAuth';
-import auth from '@react-native-firebase/auth';
+import {newUser} from '../../database/firestore';
 
 class AuthForm extends Component {
   state = {
@@ -109,6 +109,7 @@ class AuthForm extends Component {
         console.log({submittedForm});
         // this.signUp(submittedForm);
         signUp(submittedForm);
+        // newUser(this.email);
         // this.props.signUp(submittedForm);
       }
     } else {

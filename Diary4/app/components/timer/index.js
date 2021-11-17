@@ -5,20 +5,31 @@ import {StyleSheet, Text, useColorScheme, View} from 'react-native';
 import PopupButton from './popup_button';
 import Instruction from './instruction';
 import auth from '@react-native-firebase/auth';
-import {setDates, delDates, today, nextDay} from '../../database/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  setDates,
+  delDates,
+  today,
+  nextDay,
+  newUser,
+} from '../../database/firestore';
 
 const TimerComponent = () => {
   const user = auth().currentUser;
   const [stop, setStop] = React.useState(false);
   const [count, setCounts] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
-
+  console.log(user.email);
+  newUser('jhlsuper1234@gmail.com');
   useEffect(() => {
     //count 업데이트 되면 map object 업데이트해주기
     if (count == 0) {
+      // storeData('Date', today);
+      // storeData('Count', count.toString());
       setDates(user.email, {count: count, date: today});
       setDates(user.email, {count: 0, date: nextDay});
     } else {
+      // storeData('Count', count.toString());
       delDates(user.email, {count: count - 1, date: today});
       setDates(user.email, {count: count, date: today});
     }

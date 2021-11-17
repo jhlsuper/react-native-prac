@@ -24,10 +24,10 @@ const Timer = props => {
         setSecond(props.sec);
         setDelay(1000);
       }
-      console.log('its done');
+      // console.log('its done');
       //   cnt++;
       props.addCount();
-      console.log(props.cnt);
+      // console.log(props.cnt);
       setIsRunning(false);
       setbtnText('다시하기');
     }
@@ -48,10 +48,10 @@ const Timer = props => {
   const buttonPressed = () => {
     if (isRunning === true) {
       setIsRunning(false);
-      console.log(isRunning);
+      // console.log(isRunning);
     } else {
       setIsRunning(true);
-      console.log(isRunning);
+      // console.log(isRunning);
     }
   };
   //   setIsRunning(false);
