@@ -13,8 +13,8 @@ import firestore from '@react-native-firebase/firestore';
 import _, {forEach} from 'underscore';
 import auth from '@react-native-firebase/auth';
 const user = auth().currentUser;
-const loggedEmail = user.email;
-
+// const loggedEmail = user.email;
+const loggedEmail = 'jhlsuper@gmail.com';
 const emptyList = [];
 const Graph = () => {
   const [userData, setUserData] = useState([]);

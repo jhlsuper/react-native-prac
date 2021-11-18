@@ -13,18 +13,25 @@ import {
 
 function NewsComponent() {
   const [confirm, setConfirm] = useState(null);
-
+  const [phoneNumber, addPhoneNumber] = useState('+82');
   const [code, setCode] = useState('');
-
+  console.log(phoneNumber);
   async function signInWithPhoneNumber(phoneNumber) {
     const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
     setConfirm(confirmation);
   }
-
+  auth().onAuthStateChanged(user => {
+    if (user) {
+      console.log(user);
+      auth().signOut();
+    }
+  });
   async function confirmCode() {
     try {
       await confirm.confirm(code);
+      console.log('confirmed');
     } catch (error) {
+      console.log(error);
       console.log('Invalid code.');
     }
   }
@@ -32,9 +39,15 @@ function NewsComponent() {
   if (!confirm) {
     return (
       <View style={styles.container}>
+        <TextInput
+          placeholder="전화번호 입력"
+          onChangeText={phoneNumber => addPhoneNumber(phoneNumber)}
+          defaultValue={phoneNumber}
+        />
+
         <Button
           title="Phone Number Sign In"
-          onPress={() => signInWithPhoneNumber('+82 01084227964')}
+          onPress={() => signInWithPhoneNumber(phoneNumber)}
         />
       </View>
     );
@@ -64,6 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   color: {
     backgroundColor: 'gray',

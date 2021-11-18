@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "784656725278",
+    "firebase_url": "https://tenmin-68833-default-rtdb.firebaseio.com",
+    "project_id": "tenmin-68833",
+    "storage_bucket": "tenmin-68833.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784656725278:android:64fb8b047529553fd3450f",
+        "android_client_info": {
+          "package_name": "com.diary4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784656725278-ehms0f900beoslb551bus1s67f20vtrg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.diary4",
+            "certificate_hash": "fac61745dc0903786fb9ede62a962b399f7348f0"
+          }
+        },
+        {
+          "client_id": "784656725278-ddbabkgkt572a5ncc6h9emcgoflbjmc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRQs6lSPL7tKggYw1sP6TeVszdEmDq_II"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784656725278-ddbabkgkt572a5ncc6h9emcgoflbjmc2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "784656725278-j9cdtvi9jmg4evt6h7napjkr6480r90q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Diary4"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

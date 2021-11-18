@@ -30,6 +30,14 @@
 				<string>app-1-784656725278-ios-70caf6d4bf1f3650d3450f</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.784656725278-j9cdtvi9jmg4evt6h7napjkr6480r90q</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>

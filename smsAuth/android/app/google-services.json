@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "86197451963",
+    "project_id": "smsauth-56460",
+    "storage_bucket": "smsauth-56460.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86197451963:android:d2d0fa38fc9807fb353d9e",
+        "android_client_info": {
+          "package_name": "com.smsauth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86197451963-5661uqrik52cr6r7l7et9s9r6k0ela4j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smsauth",
+            "certificate_hash": "fac61745dc0903786fb9ede62a962b399f7348f0"
+          }
+        },
+        {
+          "client_id": "86197451963-ill7avfns88g1drn8m4fr6e0g0iudcer.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDowwgwdREXqIHhAt8FT04GPgEtthiy7-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86197451963-ill7avfns88g1drn8m4fr6e0g0iudcer.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
