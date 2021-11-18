@@ -9,36 +9,46 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import SmsListener from 'react-native-android-sms-listener';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
 const phoneNumber = ({navigation}) => {
   const [confirm, setConfirm] = useState(null);
   const [phoneNumber, addPhoneNumber] = useState('+82');
   const [code, setCode] = useState('');
-  const [User, setUser] = useState(null);
-
+  const [user, setUser] = useState();
+  const [logged, setLogged] = useState(false);
+  useEffect(() => {
+    console.log('receiving');
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    SmsListener.addListener(message => {
+      console.log(message);
+    }, []);
+    return subscriber;
+  });
   async function signInWithPhoneNumber(phoneNumber) {
     const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
     setConfirm(confirmation);
   }
 
   async function confirmCode() {
-    console.log(User);
-    if (User === null) {
+    console.log('User', user);
+    if (user) {
+      console.log('====================================');
+      console.log('가짜가짜!!!');
+      console.log('====================================');
+    } else {
       try {
         await confirm.confirm(code);
-
+        setLogged(true);
         console.log('confirmed');
       } catch (error) {
         console.log(error);
         console.log('Invalid code.');
       }
-    } else {
-      console.log('====================================');
-      console.log('가짜가짜!!!');
-      console.log('====================================');
     }
   }
+  function onAuthStateChanged(user) {
+    setUser(user);
+  }
+
   async function requestReadSmsPermission() {
     try {
       await PermissionsAndroid.request(
@@ -51,13 +61,8 @@ const phoneNumber = ({navigation}) => {
     } catch (err) {}
   }
 
-  useEffect(() => {
-    SmsListener.addListener(message => {
-      console.log(message);
-    }, []);
-  });
-  console.log(phoneNumber);
-  console.log(User);
+  console.log('User', user);
+  console.log('Logged', logged);
   requestReadSmsPermission();
   const SignOut = () => {
     auth().signOut();
@@ -81,24 +86,6 @@ const phoneNumber = ({navigation}) => {
       />
       <Button title="Confirm Code" onPress={() => confirmCode()} />
       <Button style={styles.color} title="로그아웃" onPress={() => SignOut()} />
-    </View>
-  );
-
-  if (User != null) {
-    <View style={styles.container}>
-      <Text>가짜화면</Text>
-    </View>;
-  } else {
-    return (
-      <View style={styles.container}>
-        <TextInput value={code} onChangeText={text => setCode(text)} />
-        <Button title="Confirm Code" onPress={() => confirmCode()} />
-      </View>
-    );
-  }
-  return (
-    <View>
-      <Text>done</Text>
     </View>
   );
 };
