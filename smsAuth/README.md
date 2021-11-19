@@ -2,10 +2,10 @@
 
 ### 참고 사이트
 
-https://rnfirebase.io/ \n
-https://rnfirebase.io/auth/phone-auth \n
-https://developers.google.com/android/guides/client-auth SHA-1값 찾는법 \n
-https://firebase.google.com/docs/auth/android/phone-auth 설정해줘야하는 것들 \n
+https://rnfirebase.io/  
+https://rnfirebase.io/auth/phone-auth  
+https://developers.google.com/android/guides/client-auth SHA-1값 찾는법  
+https://firebase.google.com/docs/auth/android/phone-auth 설정해줘야하는 것들
 
 전화번호 사전 입력값 +82
 
