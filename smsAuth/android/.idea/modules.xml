@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/smsAuth.iml" filepath="$PROJECT_DIR$/.idea/modules/smsAuth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/smsAuth.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/smsAuth.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1963138117/smsAuth.react-native-android-sms-listener.iml" filepath="$PROJECT_DIR$/.idea/modules/-1963138117/smsAuth.react-native-android-sms-listener.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1464484442/smsAuth.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/-1464484442/smsAuth.react-native-community_masked-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1238254868/smsAuth.react-native-firebase_app.iml" filepath="$PROJECT_DIR$/.idea/modules/1238254868/smsAuth.react-native-firebase_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1015729451/smsAuth.react-native-firebase_auth.iml" filepath="$PROJECT_DIR$/.idea/modules/-1015729451/smsAuth.react-native-firebase_auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1938852367/smsAuth.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/-1938852367/smsAuth.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/627930507/smsAuth.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/627930507/smsAuth.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1430050330/smsAuth.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/1430050330/smsAuth.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1468935858/smsAuth.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/1468935858/smsAuth.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-989810836/smsAuth.react-native-sms-reader.iml" filepath="$PROJECT_DIR$/.idea/modules/-989810836/smsAuth.react-native-sms-reader.iml" />
+    </modules>
+  </component>
+</project>

@@ -7,7 +7,6 @@ const phoneNumber = ({navigation}) => {
   const [phoneNumber, addPhoneNumber] = useState('+82');
   const [code, setCode] = useState('');
   const [user, setUser] = useState();
-  const [logged, setLogged] = useState(false);
   const [get, setGet] = useState('인증번호 받기');
   const [status, setStatus] = useState('인증 미완료');
 

@@ -1,0 +1,6 @@
+module Pods_smsAuth_smsAuthTests {
+  umbrella header "Pods-smsAuth-smsAuthTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
