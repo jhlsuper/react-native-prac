@@ -22,7 +22,8 @@
     "react-native-reanimated": "^2.2.4",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.9.0",
-    "react-native-sms-reader": "^2.0.2"
+    "react-native-sms-reader": "^2.0.2",
+    "react-native-sms-retriever": "^1.1.1"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
