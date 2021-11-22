@@ -23,7 +23,7 @@ function NewsComponent() {
   auth().onAuthStateChanged(user => {
     if (user) {
       console.log(user);
-      auth().signOut();
+      // auth().signOut();
     }
   });
   async function confirmCode() {

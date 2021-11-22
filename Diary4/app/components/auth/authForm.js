@@ -65,6 +65,16 @@ class AuthForm extends Component {
         onChangeText={value => this.updateInput('confirmPassword', value)}
       />
     ) : null;
+  // userNickName = () =>
+  //   this.state.type != '로그인' ? (
+  //     <Input
+  //       value={this.state.form.nickName.value}
+  //       type={this.state.form.nickName.type}
+  //       placeholder="닉네임"
+  //       placeholderTextColor="#ddd"
+  //       onChangeText={value => this.updateInput('nickName', value)}
+  //     />
+  //   ) : null;
 
   formHasErros = () =>
     this.state.hasErrors ? (
@@ -107,10 +117,7 @@ class AuthForm extends Component {
         // this.props.goWithoutLogin();
       } else {
         console.log({submittedForm});
-        // this.signUp(submittedForm);
         signUp(submittedForm);
-        // newUser(this.email);
-        // this.props.signUp(submittedForm);
       }
     } else {
       this.setState({
@@ -140,8 +147,9 @@ class AuthForm extends Component {
           onChangeText={value => this.updateInput('password', value)}
         />
         {this.confirmPassword()}
+        {/* {this.userNickName()} */}
         {this.formHasErros()}
-        <View style={{marginTop: 40}}>
+        <View style={{marginTop: 10}}>
           <View style={styles.button}>
             <Button
               title={this.state.action}
@@ -179,7 +187,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   erroerContainer: {
-    marginBottom: 10,
+    marginBottom: 5,
     marginTop: 30,
     padding: 20,
     backgroundColor: '#ee3344',
@@ -194,7 +202,7 @@ const styles = StyleSheet.create({
   button: {
     ...Platform.select({
       ios: {
-        marginTop: 15,
+        marginTop: 10,
       },
       android: {
         marginTop: 15,

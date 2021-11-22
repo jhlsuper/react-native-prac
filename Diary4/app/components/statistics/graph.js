@@ -14,7 +14,7 @@ import _, {forEach} from 'underscore';
 import auth from '@react-native-firebase/auth';
 const user = auth().currentUser;
 // const loggedEmail = user.email;
-const loggedEmail = 'jhlsuper@gmail.com';
+const loggedEmail = user.email;
 const emptyList = [];
 const Graph = () => {
   const [userData, setUserData] = useState([]);
@@ -52,12 +52,6 @@ const Graph = () => {
     console.log('test3');
   }, []);
 
-  // useEffect(() => {
-  //   console.log('userdata', userData);
-  // }, [userData]);
-  // userData.forEach(item => {
-  //   emptyList.push(item);
-  // });
   console.log('user data', userData);
 
   const timesaDay = [

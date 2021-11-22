@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useCallback} from 'react';
 
 export const storeData = async (key, value) => {
   try {
@@ -8,14 +9,27 @@ export const storeData = async (key, value) => {
   }
 };
 
-export const getData = async key => {
+export const getData = (key, fun) => {
   try {
-    const value = await AsyncStorage.getItem(key);
-    if (value !== null) {
-      console.log('saved', value);
-    }
-  } catch (e) {
-    console.log(e);
+    AsyncStorage.getItem(key).then(value => {
+      if (value != null) {
+        fun(value);
+      }
+    });
+  } catch (error) {
+    console.log('getData', error);
+  }
+};
+
+export const getIntData = (key, fun) => {
+  try {
+    AsyncStorage.getItem(key).then(value => {
+      if (value != null) {
+        fun(parseInt(value));
+      }
+    });
+  } catch (error) {
+    console.log('getData', error);
   }
 };
 
@@ -23,9 +37,8 @@ export const getAllData = async () => {
   try {
     const keys = await AsyncStorage.getAllKeys();
     const result = await AsyncStorage.multiGet(keys);
-
-    return result.map(req => JSON.parse(req)).forEach(console.log);
+    console.log('asycn stroage', result);
   } catch (error) {
-    console.log(error);
+    console.log('getAll', error);
   }
 };

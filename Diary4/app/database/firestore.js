@@ -9,6 +9,7 @@ export function setDates(userEmail, dateNCount) {
     .update({
       data: firestore.FieldValue.arrayUnion(dateNCount),
     });
+  console.log('data', dateNCount);
 }
 
 export function delDates(userEmail, dateNCount) {
@@ -20,10 +21,25 @@ export function delDates(userEmail, dateNCount) {
     });
 }
 
-export function newUser(userEmail) {
-  firestore().collection('users').doc(userEmail);
+export function createUser(userEmail) {
+  firestore().collection('users').doc(userEmail).set({data: []});
 }
 
+export function getCount(userEmail, fun) {
+  firestore()
+    .collection('users')
+    .doc(userEmail)
+    .get()
+    .then(querySnapshot => {
+      const {data} = querySnapshot.data();
+      console.log('data', data[1]['count']);
+      fun(parseInt(data[1]['count']));
+      data.forEach(item => {
+        // console.log('data items', item);
+      });
+      // console.log('userData', userData);
+    });
+}
 export let todayLong = new Date();
 export let today =
   todayLong.getFullYear() +
