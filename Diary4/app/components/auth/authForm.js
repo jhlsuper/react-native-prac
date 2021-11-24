@@ -9,7 +9,6 @@ import {thisExpression} from '@babel/types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {signUp, signIn} from './firebaseAuth';
-import {newUser} from '../../database/firestore';
 
 class AuthForm extends Component {
   state = {

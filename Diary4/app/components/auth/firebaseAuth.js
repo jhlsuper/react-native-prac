@@ -33,7 +33,7 @@ export const signIn = props => {
     .signInWithEmailAndPassword(props.email, props.password)
     .then(() => {
       console.log('로그인완료');
-      newUser();
+      // newUser();
 
       storeData('email', email);
       // storeData('nickname', props.nickName);

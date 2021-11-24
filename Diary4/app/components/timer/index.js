@@ -25,7 +25,6 @@ const TimerComponent = () => {
   useEffect(() => {
     getCount(user.email, setCounts);
     getData('Date', setToday);
-    getIntData('Count', setCounts);
 
     getAllData();
     getData('email', setEmail);

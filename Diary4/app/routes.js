@@ -11,6 +11,7 @@ import News from './components/news';
 import Stats from './components/statistics';
 import MyPage from './components/mypage';
 import {sub} from 'react-native-reanimated';
+import RankingComponent from './components/ranking';
 const AuthStack = createStackNavigator();
 const MainScreenTab = createBottomTabNavigator();
 
@@ -30,7 +31,8 @@ const AppTabComponent = () => {
   return (
     <MainScreenTab.Navigator>
       <MainScreenTab.Screen name="Timer" component={Timer} />
-      <MainScreenTab.Screen name="News" component={News} />
+
+      <MainScreenTab.Screen name="Ranking" component={RankingComponent} />
       <MainScreenTab.Screen name="Statiscs" component={Stats} />
       <MainScreenTab.Screen name="MyPage" component={MyPage} />
     </MainScreenTab.Navigator>
