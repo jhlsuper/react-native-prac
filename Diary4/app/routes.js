@@ -31,7 +31,7 @@ const AppTabComponent = () => {
   return (
     <MainScreenTab.Navigator>
       <MainScreenTab.Screen name="Timer" component={Timer} />
-
+      <MainScreenTab.Screen name="News" component={News} />
       <MainScreenTab.Screen name="Ranking" component={RankingComponent} />
       <MainScreenTab.Screen name="Statiscs" component={Stats} />
       <MainScreenTab.Screen name="MyPage" component={MyPage} />
