@@ -22,7 +22,9 @@ const Ranking = () => {
   const [ranking, setRanking] = useState([]);
   const [rankingArray, setrankingArray] = useState([]);
   const [rankingBefore, setrainkingBefore] = useState(monthBefore);
+  const [pressed, setPressed] = useState([true, false, false]);
   const [totalUser, settotalUser] = useState();
+  const [colorArray, setColorArray] = useState(['black', 'white', 'white']);
   async function getUsers() {
     await firestore()
       .collection('users')
@@ -60,7 +62,6 @@ const Ranking = () => {
 
               _.values(data)[0].forEach(value => {
                 if (value.date >= rankingBefore) {
-                  console.log('dateataet', rankingBefore);
                   // console.log('each value', value.date, value.count);
                   // console.log(data.email); //email값.
                   temp += value.count;
@@ -99,6 +100,7 @@ const Ranking = () => {
   useEffect(() => {
     getRank();
   }, [rankingBefore]);
+
   const Item = ({email}) => {
     return (
       <View style={styles.item}>
@@ -107,9 +109,18 @@ const Ranking = () => {
       </View>
     );
   };
-  const resetDate = when => {
-    setrainkingBefore(when);
-    setrankLoading(true);
+  const resetDate = (when, button) => {
+    if (!pressed[button]) {
+      const pressed_list = [false, false, false];
+      const pressed_color = ['white', 'white', 'white'];
+      setrainkingBefore(when);
+      setrankLoading(true);
+      pressed_list[button] = true;
+      pressed_color[button] = 'black';
+      setPressed(pressed_list);
+      setColorArray(pressed_color);
+      console.log('****pressed*****', pressed);
+    }
   };
   const renderItem = ({item}) => {
     console.log('aaa', item);
@@ -148,18 +159,24 @@ const Ranking = () => {
             }}>
             <TouchableOpacity
               style={styles.buttonDate}
-              onPress={() => resetDate(monthBefore)}>
-              <Text style={styles.buttonText}>월</Text>
+              onPress={() => resetDate(monthBefore, 0)}>
+              <Text style={{...styles.buttonText, color: colorArray[0]}}>
+                월
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonDate}
-              onPress={() => resetDate(weekBefore)}>
-              <Text style={styles.buttonText}>주</Text>
+              onPress={() => resetDate(weekBefore, 1)}>
+              <Text style={{...styles.buttonText, color: colorArray[1]}}>
+                주
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonDate}
-              onPress={() => resetDate(today)}>
-              <Text style={styles.buttonText}>일</Text>
+              onPress={() => resetDate(today, 2)}>
+              <Text style={{...styles.buttonText, color: colorArray[2]}}>
+                일
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -217,7 +234,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   buttonText: {
-    color: 'white',
     fontSize: 16,
     fontWeight: '600',
   },
