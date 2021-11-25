@@ -2,7 +2,7 @@ import React, {useState, useEffect, useReducer} from 'react';
 import {View, Text, Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {storeData} from '../../database/async';
-import {newUser, createUser} from '../../database/firestore';
+import {newUser, createUser, createUser2} from '../../database/firestore';
 import {setDates, delDates, today, nextDay} from '../../database/firestore';
 export const signUp = props => {
   auth()
@@ -11,6 +11,7 @@ export const signUp = props => {
       alert('User account create &signed in!');
       storeData('email', props.email);
       createUser(props.email);
+      createUser2(props.email);
       setDates(props.email, {count: 0, date: today});
       setDates(props.email, {count: 0, date: nextDay});
       storeData('Count', '0');
@@ -34,13 +35,13 @@ export const signIn = props => {
     .then(() => {
       console.log('로그인완료');
       // newUser();
-
+      // createUser('email', email);
       storeData('email', email);
       // storeData('nickname', props.nickName);
       return true;
     })
     .catch(error => {
-      alert(error);
+      // alert(error);
     });
   return false;
 };

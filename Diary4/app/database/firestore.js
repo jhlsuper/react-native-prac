@@ -2,6 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import moment from 'moment';
 
 export function setDates(userEmail, dateNCount) {
+  //날짜 count값 배열에 추가
   firestore()
     .collection('users')
     .doc(userEmail)
@@ -13,6 +14,7 @@ export function setDates(userEmail, dateNCount) {
 }
 
 export function delDates(userEmail, dateNCount) {
+  //해당 날짜와 count값 동일하면 삭제
   firestore()
     .collection('users')
     .doc(userEmail)
@@ -22,18 +24,33 @@ export function delDates(userEmail, dateNCount) {
 }
 
 export function createUser(userEmail) {
-  firestore().collection('users').doc(userEmail).set({data: []});
+  //유저 생성시 db에 userEmail등록
+  console.log('썡성됨ㅁ?');
+  firestore()
+    .collection('users')
+    .doc(userEmail)
+    .set({data: []}, {email: userEmail});
 }
-
+export function createUser2(userEmail) {
+  //유저 생성시 db에 userEmail등록
+  console.log('썡성됨ㅁ?');
+  firestore().collection('users').doc(userEmail).update({email: userEmail});
+}
 export function getCount(userEmail, fun) {
+  //오늘의 count값 받아서 state에 저장
   firestore()
     .collection('users')
     .doc(userEmail)
     .get()
     .then(querySnapshot => {
       const {data} = querySnapshot.data();
-      console.log('data', data[1]['count']);
-      fun(parseInt(data[1]['count']));
+      console.log('whole data', data);
+      // console.log('data', data[data.length - 1]['count']);
+      console.log('data', data[data.length - 1]);
+      // fun(parseInt(data[data.length - 1]['count']));
+      if (data[data.length - 1]['date'] == today) {
+        fun(parseInt(data[data.length - 1]['count']));
+      }
       data.forEach(item => {
         // console.log('data items', item);
       });

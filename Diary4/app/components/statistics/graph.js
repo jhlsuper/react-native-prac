@@ -12,13 +12,14 @@ import {BarChart, ContributionGraph} from 'react-native-chart-kit';
 import firestore from '@react-native-firebase/firestore';
 import _, {forEach} from 'underscore';
 import auth from '@react-native-firebase/auth';
-const user = auth().currentUser;
-const loggedEmail = user.email;
+
 // const loggedEmail = user.email;
-const emptyList = [];
+
 const Graph = () => {
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = auth().currentUser;
+  const loggedEmail = user.email;
 
   useEffect(() => {
     console.log('test');

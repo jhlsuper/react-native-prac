@@ -27,7 +27,7 @@ const TimerComponent = () => {
     getData('Date', setToday);
 
     getAllData();
-    getData('email', setEmail);
+    // getData('email', setEmail);
   }, []);
   console.log('count', count);
   // console.log(asyncToday);
@@ -39,7 +39,7 @@ const TimerComponent = () => {
 
       // storeData('Count', count.toString());
       // setDates(user.email, {count: count, date: today});
-      setDates(user.email, {count: 0, date: nextDay});
+      // setDates(user.email, {count: 0, date: nextDay});
     } else {
       // storeData('Count', count.toString());
       delDates(user.email, {count: count - 1, date: today});
@@ -47,7 +47,6 @@ const TimerComponent = () => {
     }
   }, [count]);
 
-  console.log({email});
   return (
     <View style={styles.screen}>
       <View style={styles.flex1}>
@@ -55,7 +54,7 @@ const TimerComponent = () => {
           visible={modalVisible}
           turnVisible={() => setModalVisible(!modalVisible)}
         />
-        <Text>{email}</Text>
+        <Text>{user.email}</Text>
       </View>
 
       <Instruction
