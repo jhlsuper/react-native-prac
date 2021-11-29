@@ -14,7 +14,12 @@ import {sub} from 'react-native-reanimated';
 import RankingComponent from './components/ranking';
 const AuthStack = createStackNavigator();
 const MainScreenTab = createBottomTabNavigator();
-
+// const bottomNavigationConfigs = {
+//   ititialRouteName: 'Timer',
+//   tobBarOptions: {
+//     style: {height: 1000},
+//   },
+// };
 /*
    Stack Navigator
         -Stack Screen A

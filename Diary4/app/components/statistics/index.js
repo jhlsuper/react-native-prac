@@ -7,21 +7,31 @@ import {
   View,
   Dimensions,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Graph from './graph';
-
+import UserInfo from './userInfo';
 export default function Statiscs() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.titleText}>- 한달 통계 -</Text>
+      <UserInfo />
       <Graph />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#7487C5',
+  },
+  titleText: {
+    paddingTop: 10,
+    fontSize: 30,
+    color: 'white',
+    fontWeight: 'bold',
   },
   color: {
     marginTop: 100,

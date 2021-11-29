@@ -8,19 +8,14 @@ import {
   Pressable,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-const logOut = () => {
-  auth()
-    .signOut()
-    .then(() => console.log('user signed out'));
-};
+import {logOut} from '../../store/actions/user_actions';
+
 export default function MyPage() {
   // Set an initializing state whilst Firebase connects
 
   return (
     <View style={styles.container}>
-      <Button title="로그아웃" onPress={logOut}>
-        <Text>HiHello</Text>
-      </Button>
+      <Button title="로그아웃" onPress={logOut}></Button>
     </View>
   );
 }
@@ -28,6 +23,7 @@ export default function MyPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
   },

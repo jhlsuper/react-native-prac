@@ -1,6 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
 import axios from 'axios';
+import {throwStatement} from '@babel/types';
 function NewsComponent() {
   const [covid, setCovid] = useState({
     dateTime: '',
@@ -20,27 +21,119 @@ function NewsComponent() {
     fineDustLevel: '', //미세먼지 단계
     ultraFineDust: 0, //초미세먼지
     ultraFineDustLevel: '',
-    nitrogneDioxide: 0, //이산화질소
-    nitrogneDioxideLevle: '',
+    nitrogenDioxide: 0, //이산화질소
+    nitrogenDioxideLevel: '',
   });
+  const makeDustData = (item, data) => {
+    let dustData;
+    let value, level;
+
+    for (let key in data) dustData = data[key];
+    //console.log('dustData: ', dustData)
+
+    value = dustData.body.items[0].seoul;
+
+    if (item === 'PM10') {
+      if (value <= 30) {
+        level = '좋음';
+      } else if (value > 30 && value <= 50) {
+        level = '보통';
+      } else if (value > 51 && value <= 100) {
+        level = '나쁨';
+      } else if (value > 101) {
+        level = '매우나쁨';
+      }
+
+      setDust(prevData => ({
+        ...prevData,
+        dateTime: dustData.body.items[0].dataTime,
+        fineDust: value,
+        fineDustLevel: level,
+      }));
+    } else if (item === 'PM25') {
+      if (value <= 15) {
+        level = '좋음';
+      } else if (value > 15 && value <= 25) {
+        level = '보통';
+      } else if (value > 25 && value <= 50) {
+        level = '나쁨';
+      } else if (value > 51) {
+        level = '매우나쁨';
+      }
+
+      setDust(prevData => ({
+        ...prevData,
+        ultraFineDust: value,
+        ultraFineDustLevel: level,
+      }));
+    } else if (item === 'NO2') {
+      if (value <= 0.03) {
+        level = '좋음';
+      } else if (value > 0.03 && value <= 0.06) {
+        level = '보통';
+      } else if (value > 0.06 && value <= 0.2) {
+        level = '나쁨';
+      } else if (value > 0.2) {
+        level = '매우나쁨';
+      }
+
+      setDust(prevData => ({
+        ...prevData,
+        nitrogenDioxide: value,
+        nitrogenDioxideLevel: level,
+      }));
+    }
+  };
   useEffect(() => {
     let today = formatDate().today;
     let yesterday = formatDate().yesterday;
+
     const requestCovid = axios({
       method: 'GET',
-      url: `http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=0C5aP5Fobx5FMuWckWfHEm78jK4lX7%2BYV%2F%2FfAObXYmqJMd2n6DyvlExAb1vZmGgmc6JJpxPOIcjBkIBrrBJVsA%3D%3D
-      &pageNo=1&numOfRows=10&startCreateDt=${yesterday}&endCreateDt=${today}`,
+      url: `http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=0C5aP5Fobx5FMuWckWfHEm78jK4lX7%2BYV%2F%2FfAObXYmqJMd2n6DyvlExAb1vZmGgmc6JJpxPOIcjBkIBrrBJVsA%3D%3D&pageNo=1&numOfRows=10&startCreateDt=${yesterday}&endCreateDt=${today}`,
     })
       .then(response => {
         makeCovidData(response.data);
       })
       .catch(e => console.log(e));
+    const fineDust = ['PM10', 'PM25', 'NO2'];
+    for (const item of fineDust) {
+      const requestDust = axios({
+        method: 'GET',
+        url: `http://apis.data.go.kr/B552584/ArpltnStatsSvc/getCtprvnMesureLIst?itemCode=${item}&dataGubun=HOUR&pageNo=1&numOfRows=100&returnType=json&serviceKey=0C5aP5Fobx5FMuWckWfHEm78jK4lX7%2BYV%2F%2FfAObXYmqJMd2n6DyvlExAb1vZmGgmc6JJpxPOIcjBkIBrrBJVsA%3D%3D`,
+      }).then(response => {
+        makeDustData(item, response.data);
+      });
+    }
   }, []);
 
   makeCovidData = data => {
-    let covideData;
-    console.log('covid Data', data);
+    let covidData;
+    for (let key in data) {
+      covidData = data[key];
+      console.log('covid data', covidData);
+    }
+    let prevData = covidData.body.items.item[1];
+    let currData = covidData.body.items.item[0];
+
+    let covidCopy = covid;
+    covidCopy.dateTime = currData.createDt;
+    covidCopy.confirmed = addComma(currData.decideCnt); //확진환지
+    covidCopy.released = addComma(currData.clearCnt); //격리해제
+    covidCopy.deceased = addComma(currData.deathCnt); //사망자
+    covidCopy.inProgress = addComma(currData.examCnt); // 검사 진행
+
+    covidCopy.confirmedDailyChange = currData.decideCnt - prevData.decideCnt; //확진환자 변화량
+    covidCopy.realeasedDailyChange = currData.clearCnt - prevData.clearCnt;
+    covidCopy.deceasedDailyChange = currData.deathCnt - prevData.deathCnt;
+    covidCopy.inProgressDailyChange = currData.examCnt - prevData.examCnt;
+    setCovid(covidCopy);
   };
+
+  function addComma(num) {
+    let regExp = /\B(?=(\d{3})+(?!\d))/g; //쉼표를 3자리수마다 찍어주는 정규표현식
+    return num.toString().replace(regExp, ',');
+  }
 
   formatDate = () => {
     let todayDate = new Date();
@@ -62,7 +155,28 @@ function NewsComponent() {
     let finalDate = `${year}${month}${day}`;
     return finalDate;
   };
-
+  function selectEmoticion() {
+    const fineDustLevel = dust.fineDustLevel;
+    let emoticonPath;
+    switch (fineDustLevel) {
+      case '좋음':
+        emoticonPath = require('../../assets/images/very_good.png');
+        return emoticonPath;
+      case '보통':
+        emoticonPath = require('../../assets/images/good.png');
+        return emoticonPath;
+      case '나쁨':
+        emoticonPath = require('../../assets/images/bad.png');
+        return emoticonPath;
+      case '매우나쁨':
+        emoticonPath = require('../../assets/images/very_bad.png');
+        return emoticonPath;
+      default:
+        emoticonPath = require('../../assets/images/very_good.png');
+        return emoticonPath;
+    }
+  }
+  console.log('dust', {dust});
   return (
     <View style={styles.newsContainer}>
       <View style={styles.covidContainer}>
@@ -76,52 +190,108 @@ function NewsComponent() {
             justifyContent: 'center',
             flexDirection: 'row',
           }}>
-          <Text style={styles.timeText}>mm.dd. xx:xx</Text>
-          <Text style={styles.timeText}>기준 </Text>
+          <Text style={styles.timeText}>{covid.dateTime}</Text>
+          <Text style={styles.timeText}> 기준 </Text>
         </View>
         <View style={styles.contentView}>
           <View style={{flex: 1}}>
             <Text style={[styles.mainText]}>확진환자</Text>
           </View>
           <View style={{flex: 1}}>
-            <Text style={[styles.mainText, styles.redText]}>10000</Text>
+            <Text style={[styles.mainText, styles.redText]}>
+              {covid.confirmed}
+            </Text>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <Text style={{fontSize: 20}}>▲450</Text>
-          </View>
+          {covid.confirmedDailyChange > 0 ? (
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text style={{fontSize: 20}}>▲ </Text>
+              <Text style={{fontSize: 20}}>
+                {addComma(covid.confirmedDailyChange)}
+              </Text>
+            </View>
+          ) : (
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text style={{fontSize: 20}}>▼ </Text>
+              <Text style={{fontSize: 20}}>
+                {addComma(covid.confirmedDailyChange * -1)}
+              </Text>
+            </View>
+          )}
         </View>
         <View style={styles.contentView}>
           <View style={{flex: 1}}>
             <Text style={[styles.mainText]}>격리해제</Text>
           </View>
           <View style={{flex: 1}}>
-            <Text style={[styles.mainText, styles.blueText]}>5000</Text>
+            <Text style={[styles.mainText, styles.blueText]}>
+              {addComma(covid.confirmedDailyChange)}
+            </Text>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <Text style={{fontSize: 20}}>▲260</Text>
-          </View>
+          {covid.realeasedDailyChange > 0 ? (
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text style={{fontSize: 20}}>▲ </Text>
+              <Text style={{fontSize: 20}}>
+                {addComma(covid.realeasedDailyChange)}
+              </Text>
+            </View>
+          ) : (
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text style={{fontSize: 20}}>▼ </Text>
+              <Text style={{fontSize: 20}}>
+                {addComma(covid.realeasedDailyChange * -1)}
+              </Text>
+            </View>
+          )}
         </View>
         <View style={styles.contentView}>
           <View style={{flex: 1}}>
             <Text style={[styles.mainText]}>사망자</Text>
           </View>
           <View style={{flex: 1}}>
-            <Text style={[styles.mainText, styles.grayText]}>400</Text>
+            <Text style={[styles.mainText, styles.grayText]}>
+              {covid.deceased}
+            </Text>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <Text style={{fontSize: 20}}>▲0</Text>
-          </View>
+          {covid.deceasedDailyChange > 0 ? (
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text style={{fontSize: 20}}>▲ </Text>
+              <Text style={{fontSize: 20}}>
+                {addComma(covid.deceasedDailyChange)}
+              </Text>
+            </View>
+          ) : (
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text style={{fontSize: 20}}>▼ </Text>
+              <Text style={{fontSize: 20}}>
+                {addComma(covid.deceasedDailyChange * -1)}
+              </Text>
+            </View>
+          )}
         </View>
         <View style={styles.contentView}>
           <View style={{flex: 1}}>
             <Text style={[styles.mainText]}>검사진행</Text>
           </View>
           <View style={{flex: 1}}>
-            <Text style={[styles.mainText, styles.grayText]}>1500</Text>
+            <Text style={[styles.mainText, styles.grayText]}>
+              {covid.inProgress}
+            </Text>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <Text style={{fontSize: 20}}>▲0</Text>
-          </View>
+          {covid.inProgressDailyChange > 0 ? (
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text style={{fontSize: 20}}>▲ </Text>
+              <Text style={{fontSize: 20}}>
+                {addComma(covid.inProgressDailyChange)}
+              </Text>
+            </View>
+          ) : (
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text style={{fontSize: 20}}>▼ </Text>
+              <Text style={{fontSize: 20}}>
+                {addComma(covid.inProgressDailyChange * -1)}
+              </Text>
+            </View>
+          )}
         </View>
       </View>
       <View style={styles.dustContainer}>
@@ -135,20 +305,30 @@ function NewsComponent() {
             justifyContent: 'center',
             flexDirection: 'row',
           }}>
-          <Text style={styles.timeText}>서울</Text>
-          <Text style={styles.timeText}>mm.dd xx:xx</Text>
-          <Text> 기준</Text>
+          <Text style={styles.timeText}>서울 </Text>
+          <Text style={styles.timeText}>{dust.dateTime}</Text>
+          <Text style={styles.timeText}> 기준</Text>
         </View>
         <View style={{flex: 1.8, justifyContent: 'center'}}>
           <View style={{alignItems: 'center'}}>
             <Image
-              source={require('../../assets/images/very_good.png')}
+              source={selectEmoticion()}
+              // source={require('../../assets/images/very_good.png')}
               style={{width: 60, height: 60}}
               resizeMode="contain"
             />
           </View>
           <View style={{alignItems: 'center', paddingTop: 8}}>
-            <Text style={(styles.emoticonText, styles.blueText)}>좋음</Text>
+            {(dust.fineDustLevel === '좋음') |
+            (dust.fineDustLevel === '보통') ? (
+              <Text style={[styles.emoticonText, styles.blueText]}>
+                {dust.fineDustLevel}
+              </Text>
+            ) : (
+              <Text style={[styles.emoticonText, styles.redText]}>
+                {dust.fineDustLevel}
+              </Text>
+            )}
           </View>
         </View>
         <View style={styles.contentView_}>
@@ -156,10 +336,19 @@ function NewsComponent() {
             <Text style={styles.mainText}>미세먼지</Text>
           </View>
           <View style={{flex: 1, alignItems: 'center'}}>
-            <Text style={(styles.mainText, styles.blueText)}>좋음</Text>
+            {(dust.fineDustLevel === '좋음') |
+            (dust.fineDustLevel === '보통') ? (
+              <Text style={[styles.emoticonText, styles.blueText]}>
+                {dust.fineDustLevel}
+              </Text>
+            ) : (
+              <Text style={[styles.emoticonText, styles.redText]}>
+                {dust.fineDustLevel}
+              </Text>
+            )}
           </View>
           <View style={{flex: 1, flexDirection: 'row'}}>
-            <Text style={{fontSize: 20}}>30</Text>
+            <Text style={{fontSize: 20}}>{dust.fineDust}</Text>
             <Text style={{fontSize: 20}}>µg/m3</Text>
           </View>
         </View>
@@ -168,10 +357,19 @@ function NewsComponent() {
             <Text style={styles.mainText}>초미세먼지</Text>
           </View>
           <View style={{flex: 1, alignItems: 'center'}}>
-            <Text style={(styles.mainText, styles.blueText)}>좋음</Text>
+            {(dust.ultraFineDustLevel === '좋음') |
+            (dust.ultraFineDustLevel === '보통') ? (
+              <Text style={[styles.emoticonText, styles.blueText]}>
+                {dust.ultraFineDustLevel}
+              </Text>
+            ) : (
+              <Text style={[styles.emoticonText, styles.redText]}>
+                {dust.ultraFineDustLevel}
+              </Text>
+            )}
           </View>
           <View style={{flex: 1, flexDirection: 'row'}}>
-            <Text style={{fontSize: 20}}>15</Text>
+            <Text style={{fontSize: 20}}>{dust.ultraFineDust}</Text>
             <Text style={{fontSize: 20}}>µg/m3</Text>
           </View>
         </View>
@@ -180,10 +378,19 @@ function NewsComponent() {
             <Text style={styles.mainText}>이산화질소</Text>
           </View>
           <View style={{flex: 1, alignItems: 'center'}}>
-            <Text style={(styles.mainText, styles.blueText)}>좋음</Text>
+            {(dust.nitrogenDioxideLevel === '좋음') |
+            (dust.nitrogenDioxideLevel === '보통') ? (
+              <Text style={[styles.emoticonText, styles.blueText]}>
+                {dust.nitrogenDioxideLevel}
+              </Text>
+            ) : (
+              <Text style={[styles.emoticonText, styles.redText]}>
+                {dust.nitrogenDioxideLevel}
+              </Text>
+            )}
           </View>
           <View style={{flex: 1, flexDirection: 'row'}}>
-            <Text style={{fontSize: 20}}>0.027</Text>
+            <Text style={{fontSize: 20}}>{dust.nitrogenDioxide}</Text>
             <Text style={{fontSize: 20}}>ppm</Text>
           </View>
         </View>
@@ -195,7 +402,8 @@ const styles = StyleSheet.create({
   newsContainer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#eee',
+    backgroundColor: '#7487C5',
+    // backgroundColor: '#eee',
     height: '100%',
     padding: 10,
     // alignContent: 'center',
@@ -220,7 +428,7 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 17,
-    color: 'gray',
+    color: 'lightgray',
   },
   contentView: {
     flex: 0.7,
@@ -245,10 +453,11 @@ const styles = StyleSheet.create({
     color: '#0070C0',
   },
   grayText: {
-    color: '#808080',
+    // color: '#808080',
+    color: 'lightgray',
   },
   emoticonText: {
-    fontSize: 25,
+    fontSize: 23,
     fontWeight: 'bold',
   },
 });

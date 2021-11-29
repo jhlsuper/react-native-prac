@@ -1,12 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  Button,
-  TextInput,
-  Text,
-  StyleSheet,
-  View,
-  Pressable,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Ranking from './ranking';
 export default function RankingComponent() {
   // Set an initializing state whilst Firebase connects
@@ -25,6 +18,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#7487C5',
   },
   color: {
     alignContent: 'center',

@@ -16,26 +16,6 @@ export function signIn(data) {
   };
 }
 export function signUp(data) {
-  // const request = axios({
-  //   method: 'POST',
-  //   url: SIGNUP,
-  //   data: {
-  //     email: data.email,
-  //     password: data.password,
-  //     returnSecureToken: true,
-  //   },
-  //   header: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // })
-  //   .then(response => {
-  //     console.log(response.data);
-  //     return response.data;
-  //   })
-  //   .catch(err => {
-  //     alert('에러 발행');
-  //     return false;
-  //   });
   auth()
     .createUserWithEmailAndPassword(data.email, data.password)
     .then(() => {
@@ -57,4 +37,10 @@ export function signUp(data) {
     type: SIGN_UP,
     payload: request,
   };
+}
+
+export function logOut() {
+  auth()
+    .signOut()
+    .then(() => console.log('user signed out'));
 }

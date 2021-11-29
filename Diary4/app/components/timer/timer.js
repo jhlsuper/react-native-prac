@@ -63,10 +63,13 @@ const Timer = props => {
         {Math.floor(second / 60)} 분 : {second % 60} 초
       </Text>
       <View style={styles.press}>
-        <Pressable style={styles.press} onPress={buttonPressed}>
+        <TouchableOpacity style={styles.press} onPress={buttonPressed}>
           {/* <Text>{btnText}</Text> */}
-          <Button title={btnText} color="white" onPress={buttonPressed} />
-        </Pressable>
+          <Text title={btnText} style={styles.btnText} onPress={buttonPressed}>
+            {btnText}
+          </Text>
+          {/* <Button title={btnText} color="white" onPress={buttonPressed} /> */}
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -104,18 +107,22 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   count_text: {
-    // alignContent: 'center',
     marginTop: 10,
-    // justifyContent: 'center',
   },
   press: {
     alignContent: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
-    color: 'while',
+    color: 'white',
     alignContent: 'center',
     justifyContent: 'center',
+  },
+  btnText: {
+    marginTop: 5,
+    color: 'white',
+    fontSize: 20,
   },
 });
 

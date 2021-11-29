@@ -20,12 +20,13 @@ const Graph = () => {
   const [loading, setLoading] = useState(true);
   const user = auth().currentUser;
   const loggedEmail = user.email;
-
+  const [totalTime, setTotalTime] = useState(0);
+  const [mostRecent, setMostRecent] = useState();
   useEffect(() => {
-    console.log('test');
     const fetchData = async email => {
       try {
         const list = [];
+        let temp = 0;
         firestore()
           .collection('users')
           .doc(email)
@@ -33,12 +34,15 @@ const Graph = () => {
           .then(querySnapshot => {
             const {data} = querySnapshot.data();
             data.forEach(item => {
-              console.log(item);
-
+              console.log('item', item);
+              temp += item.count;
               list.push({date: item.date, count: item.count});
             });
             console.log('list', list);
+            console.log(temp);
+            setTotalTime(temp);
             setUserData(list);
+            setMostRecent(list[list.length - 1].date);
             // console.log('userData', userData);
           });
         if (loading) {
@@ -48,12 +52,10 @@ const Graph = () => {
         console.log(e);
       }
     };
-    console.log('test2');
     fetchData(loggedEmail);
-    console.log('test3');
   }, []);
 
-  console.log('user data', userData);
+  // console.log('user data', userData);
 
   const timesaDay = [
     {date: '2021-11-02', count: 1},
@@ -85,18 +87,26 @@ const Graph = () => {
   console.log(new Date());
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>통계</Text>
-      <ContributionGraph
-        //values={userData.length == 0 ? timesaDay : userData}
-        values={userData}
-        endDate={new Date()}
-        numDays={90}
-        width={Dimensions.get('window').width}
-        height={220}
-        squareSize={22}
-        gutterSize={1.5}
-        chartConfig={chartConfig}
-      />
+      {/* <Text style={styles.text}>통계</Text> */}
+      <View style={styles.infoContainer}>
+        <Text style={styles.titleText}>
+          총 집중한 시간 : {totalTime * 10} 분
+        </Text>
+        <Text style={styles.titleText}>가장 최근 공부한 날 : {mostRecent}</Text>
+      </View>
+      <View style={styles.graphContainer}>
+        <ContributionGraph
+          //values={userData.length == 0 ? timesaDay : userData}
+          values={userData}
+          endDate={new Date()}
+          numDays={90}
+          width={Dimensions.get('window').width}
+          height={220}
+          squareSize={22}
+          gutterSize={1.5}
+          chartConfig={chartConfig}
+        />
+      </View>
     </View>
   );
 };
@@ -104,12 +114,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+  },
+  infoContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  graphContainer: {
+    flex: 5,
+    alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
     marginBottom: 10,
     fontSize: 20,
     color: 'green',
+  },
+  titleText: {
+    paddingTop: 10,
+    fontSize: 26,
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 export default Graph;

@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {
-  Button,
-  TextInput,
   Text,
   StyleSheet,
   View,
-  Pressable,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import _, {size, times} from 'lodash';
@@ -58,16 +56,17 @@ const Ranking = () => {
             .doc(value)
             .get()
             .then(querySnapshot => {
-              const data = querySnapshot.data();
+              const dateData = querySnapshot.data();
+              console.log('dataaaaa', _.values(dateData));
 
-              _.values(data)[0].forEach(value => {
+              _.values(dateData)[0].forEach(value => {
                 if (value.date >= rankingBefore) {
                   // console.log('each value', value.date, value.count);
                   // console.log(data.email); //email값.
                   temp += value.count;
                 }
               });
-              temp_list.push({email: data.email, count: temp});
+              temp_list.push({email: dateData.email, count: temp});
 
               console.log('temp_list', temp_list);
               if (parseInt(temp_list.length) == parseInt(totalUser)) {
@@ -101,11 +100,11 @@ const Ranking = () => {
     getRank();
   }, [rankingBefore]);
 
-  const Item = ({email}) => {
+  const Item = ({data}) => {
     return (
       <View style={styles.item}>
-        <Text>총 {email.count}번.</Text>
-        <Text style={styles.email}>{email.email}</Text>
+        <Text>총 {data.count}번.</Text>
+        <Text style={[styles.email, {color: 'white'}]}>{data.email}</Text>
       </View>
     );
   };
@@ -125,12 +124,12 @@ const Ranking = () => {
   const renderItem = ({item}) => {
     console.log('aaa', item);
 
-    return <Item email={item} />;
+    return <Item data={item} />;
   };
   if (rankLoading) {
     return (
       <View>
-        <Text>123</Text>
+        <ActivityIndicator size="large" />
       </View>
     );
   }
@@ -213,11 +212,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: 'green',
     paddingVertical: 10,
     paddingHorizontal: 25,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderRadius: 10,
   },
   email: {
     fontSize: 30,
