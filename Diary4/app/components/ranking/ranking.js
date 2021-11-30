@@ -5,6 +5,7 @@ import {
   View,
   FlatList,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import _, {size, times} from 'lodash';
@@ -57,15 +58,27 @@ const Ranking = () => {
             .get()
             .then(querySnapshot => {
               const dateData = querySnapshot.data();
-              console.log('dataaaaa', _.values(dateData));
+              // console.log('dataaaaa', _.values(dateData));
+              // console.log('dateData[0]', _.values(dateData)[0]);
+              //ios _.values(dateData[0])   android _.values(dateData[1])
+              if (Platform.OS === 'ios') {
+                _.values(dateData)[0].forEach(value => {
+                  if (value.date >= rankingBefore) {
+                    // console.log('each value', value.date, value.count);
+                    // console.log(data.email); //email값.
+                    temp += value.count;
+                  }
+                });
+              } else if (Platform.OS === 'android') {
+                _.values(dateData)[1].forEach(value => {
+                  if (value.date >= rankingBefore) {
+                    // console.log('each value', value.date, value.count);
+                    // console.log(data.email); //email값.
+                    temp += value.count;
+                  }
+                });
+              }
 
-              _.values(dateData)[0].forEach(value => {
-                if (value.date >= rankingBefore) {
-                  // console.log('each value', value.date, value.count);
-                  // console.log(data.email); //email값.
-                  temp += value.count;
-                }
-              });
               temp_list.push({email: dateData.email, count: temp});
 
               console.log('temp_list', temp_list);
