@@ -133,9 +133,9 @@ const Ranking = () => {
       </View>
     );
   }
-  console.log('before date', rankingBefore);
+  // console.log('before date', rankingBefore);
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.topContainer}>
         <View style={{flex: 3, flexDirection: 'row'}}>
           <View style={{flex: 1}}></View>
@@ -145,9 +145,7 @@ const Ranking = () => {
 
               alignItems: 'center',
               justifyContent: 'center',
-            }}>
-            <Text style={styles.rankignText}>유저 랭킹</Text>
-          </View>
+            }}></View>
           <View
             style={{
               flex: 1,
@@ -187,14 +185,13 @@ const Ranking = () => {
           renderItem={renderItem}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',

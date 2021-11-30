@@ -2,6 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
 import axios from 'axios';
 import {throwStatement} from '@babel/types';
+import {SafeAreaView} from 'react-native-safe-area-context';
 function NewsComponent() {
   const [covid, setCovid] = useState({
     dateTime: '',
@@ -178,7 +179,7 @@ function NewsComponent() {
   }
   console.log('dust', {dust});
   return (
-    <View style={styles.newsContainer}>
+    <SafeAreaView style={styles.newsContainer}>
       <View style={styles.covidContainer}>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Text style={styles.titleText}># COVID -19</Text>
@@ -395,7 +396,7 @@ function NewsComponent() {
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -406,8 +407,6 @@ const styles = StyleSheet.create({
     // backgroundColor: '#eee',
     height: '100%',
     padding: 10,
-    // alignContent: 'center',
-    // justifyContent: 'center',
   },
   color: {
     backgroundColor: 'gray',

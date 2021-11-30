@@ -27,14 +27,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleText: {
-    paddingTop: 10,
-    fontSize: 26,
-    color: 'white',
+    fontSize: 25,
     fontWeight: 'bold',
   },
   color: {
     marginTop: 100,
     backgroundColor: 'gray',
+  },
+  idContainer: {
+    flexDirection: 'row',
   },
 });
 

@@ -54,7 +54,7 @@ const TimerComponent = () => {
           visible={modalVisible}
           turnVisible={() => setModalVisible(!modalVisible)}
         />
-        <Text>{user.email}</Text>
+        {/* <Text>{user.email}</Text> */}
       </View>
 
       <Instruction

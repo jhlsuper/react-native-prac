@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Ranking from './ranking';
 export default function RankingComponent() {
   // Set an initializing state whilst Firebase connects
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.titleText}>유저 랭킹</Text>
       {/* <Text>랭킹화면</Text> */}
       <Ranking />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -24,5 +26,10 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     marginTop: 100,
     justifyContent: 'center',
+  },
+  titleText: {
+    paddingTop: 10,
+    fontSize: 30,
+    fontWeight: 'bold',
   },
 });

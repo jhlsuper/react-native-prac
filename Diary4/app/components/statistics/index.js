@@ -13,7 +13,7 @@ import UserInfo from './userInfo';
 export default function Statiscs() {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.titleText}>- 한달 통계 -</Text>
+      <Text style={styles.titleText}>한달 통계</Text>
       <UserInfo />
       <Graph />
     </SafeAreaView>
@@ -23,6 +23,7 @@ export default function Statiscs() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#7487C5',
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
   titleText: {
     paddingTop: 10,
     fontSize: 30,
-    color: 'white',
     fontWeight: 'bold',
   },
   color: {
