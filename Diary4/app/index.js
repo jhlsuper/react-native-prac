@@ -4,9 +4,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {RootNavigator} from './routes';
 import {StyleSheet} from 'react-native';
 
-import firestore from '@react-native-firebase/firestore';
-import {SafeAreaView} from 'react-native-safe-area-context';
-
 function App() {
   return (
     <NavigationContainer>

@@ -1,15 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {
-  Button,
-  TextInput,
-  Text,
-  StyleSheet,
-  View,
-  Pressable,
-} from 'react-native';
-import auth from '@react-native-firebase/auth';
+import React from 'react';
+import {Text, StyleSheet} from 'react-native';
 import {logOut} from '../../store/actions/user_actions';
-import {LogoutBtn} from '../mypage/logoutBtn';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import MyPage from './mypage';

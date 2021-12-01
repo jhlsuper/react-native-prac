@@ -8,7 +8,7 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import {BarChart, ContributionGraph} from 'react-native-chart-kit';
+import {ContributionGraph} from 'react-native-chart-kit';
 import firestore from '@react-native-firebase/firestore';
 import _, {forEach} from 'underscore';
 import auth from '@react-native-firebase/auth';
@@ -77,38 +77,41 @@ const Graph = () => {
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
   };
-  // if (loading) {
-  //   return (
-  //     <View style={styles.container}>
-  //       <ActivityIndicator />
-  //     </View>
-  //   );
-  // } else {
-  console.log(new Date());
-  return (
-    <View style={styles.container}>
-      {/* <Text style={styles.text}>통계</Text> */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.titleText}>
-          총 집중한 시간 : {totalTime * 10} 분
-        </Text>
-        <Text style={styles.titleText}>가장 최근 공부한 날 : {mostRecent}</Text>
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator />
       </View>
-      <View style={styles.graphContainer}>
-        <ContributionGraph
-          //values={userData.length == 0 ? timesaDay : userData}
-          values={userData}
-          endDate={new Date()}
-          numDays={90}
-          width={Dimensions.get('window').width}
-          height={220}
-          squareSize={22}
-          gutterSize={1.5}
-          chartConfig={chartConfig}
-        />
+    );
+  } else {
+    console.log(new Date());
+    return (
+      <View style={styles.container}>
+        {/* <Text style={styles.text}>통계</Text> */}
+        <View style={styles.infoContainer}>
+          <Text style={styles.titleText}>
+            총 집중한 시간 : {totalTime * 10} 분
+          </Text>
+          <Text style={styles.titleText}>
+            가장 최근 공부한 날 : {mostRecent}
+          </Text>
+        </View>
+        <View style={styles.graphContainer}>
+          <ContributionGraph
+            //values={userData.length == 0 ? timesaDay : userData}
+            values={userData}
+            endDate={new Date()}
+            numDays={90}
+            width={Dimensions.get('window').width}
+            height={220}
+            squareSize={22}
+            gutterSize={1.5}
+            chartConfig={chartConfig}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 };
 const styles = StyleSheet.create({
   container: {

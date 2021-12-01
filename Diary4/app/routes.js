@@ -11,25 +11,21 @@ import Timer from './components/timer';
 import News from './components/news';
 import Stats from './components/statistics';
 import MyPage from './components/mypage';
-import {sub} from 'react-native-reanimated';
 import RankingComponent from './components/ranking';
-import Icon from 'react-native-ionicons';
 const AuthStack = createStackNavigator();
 const MainScreenTab = createBottomTabNavigator();
-// const bottomNavigationConfigs = {
-//   ititialRouteName: 'Timer',
-//   tobBarOptions: {
-//     style: {height: 1000},
-//   },
-// };
+
 /*
    Stack Navigator
         -Stack Screen A
     
     Stack Navigator 
         - Tab Navigator
-            -Tab Screen B - diary 
-            -Tab Screen C - news
+            -Tab Screen A - Timer 
+            -Tab Screen B - News
+            -Tab Screen C - Ranking
+            -Tab Screen D - Statiscs
+            -Tab Screen F - MyPage
 */
 
 const isLoggedIn = false;
@@ -78,9 +74,10 @@ export const RootNavigator = () => {
   }
   useEffect(() => {
     const subcsriber = auth().onAuthStateChanged(onAuthStateChanged);
+    console.log('subscriber', subcsriber);
     return subcsriber;
   }, []);
-  // if (initializing) return null;
+  if (initializing) return null;
 
   return (
     <AuthStack.Navigator screenOptions={{headerShown: false}}>

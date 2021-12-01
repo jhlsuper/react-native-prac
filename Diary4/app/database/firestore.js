@@ -25,7 +25,7 @@ export function delDates(userEmail, dateNCount) {
 
 export function createUser(userEmail) {
   //유저 생성시 db에 userEmail등록
-  console.log('썡성됨ㅁ?');
+  console.log('생성됨');
   firestore()
     .collection('users')
     .doc(userEmail)
