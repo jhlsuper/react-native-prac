@@ -18,46 +18,51 @@ import auth from '@react-native-firebase/auth';
 const Graph = () => {
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const user = auth().currentUser;
-  const loggedEmail = user.email;
+
   const [totalTime, setTotalTime] = useState(0);
   const [mostRecent, setMostRecent] = useState();
+  const user = auth().currentUser; //사용자
+  const loggedEmail = user.email; //사용자 이메일
+
   useEffect(() => {
-    const fetchData = async email => {
-      try {
-        const list = [];
-        let temp = 0;
-        firestore()
-          .collection('users')
-          .doc(email)
-          .get()
-          .then(querySnapshot => {
-            const {data} = querySnapshot.data();
-            data.forEach(item => {
-              console.log('item', item);
-              temp += item.count;
-              list.push({date: item.date, count: item.count});
-            });
-            console.log('list', list);
-            console.log(temp);
-            setTotalTime(temp);
-            setUserData(list);
-            setMostRecent(list[list.length - 1].date);
-            // console.log('userData', userData);
-          });
-        if (loading) {
-          setLoading(false);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    };
     fetchData(loggedEmail);
   }, []);
-
-  // console.log('user data', userData);
-
+  const fetchData = async email => {
+    try {
+      const list = [];
+      let temp = 0;
+      firestore()
+        .collection('users')
+        .doc(email)
+        .get()
+        .then(querySnapshot => {
+          const {data} = querySnapshot.data();
+          data.forEach(item => {
+            console.log('item', item);
+            temp += item.count; //총 집중시간 계산
+            list.push({date: item.date, count: item.count});
+          });
+          console.log('list', list);
+          console.log(temp);
+          setTotalTime(temp); //총 집중 횟수 저장
+          setUserData(list); //날짜, 집중횟수 data저장
+          const lastFocusCount = list[list.length - 1].count;
+          if (lastFocusCount != 0) {
+            setMostRecent(list[list.length - 1].date); //가장최근 공부한 날 저장
+          } else {
+            setMostRecent('아직 없습니다');
+          }
+          // console.log('userData', userData);
+        });
+      if (loading) {
+        setLoading(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const timesaDay = [
+    //임시 data
     {date: '2021-11-02', count: 1},
     {date: '2021-11-03', count: 2},
     {date: '2021-11-04', count: 3},
@@ -66,6 +71,7 @@ const Graph = () => {
     {date: '2021-11-15', count: 10},
   ];
   const chartConfig = {
+    //차트 설정값
     backgroundGradientFrom: 'white',
     backgroundGradientFromOpacity: 1,
     backgroundGradientTo: 'white',
@@ -84,7 +90,6 @@ const Graph = () => {
       </View>
     );
   } else {
-    console.log(new Date());
     return (
       <View style={styles.container}>
         {/* <Text style={styles.text}>통계</Text> */}
@@ -101,7 +106,7 @@ const Graph = () => {
             //values={userData.length == 0 ? timesaDay : userData}
             values={userData}
             endDate={new Date()}
-            numDays={90}
+            numDays={90} //그래프 날짜 90일까지
             width={Dimensions.get('window').width}
             height={220}
             squareSize={22}

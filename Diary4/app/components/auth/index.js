@@ -11,40 +11,46 @@ import {
 } from 'react-native';
 import AuthLogo from './authLogo';
 import AuthForm from './authForm';
-
-const AuthComponent = props => {
-  const [loading, setLoading] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
+import {Component} from 'react';
+class AuthComponent extends Component {
+  state = {
+    loading: false,
+    authenticated: false,
+  };
 
   goWithoutLogin = () => {
-    props.navigation.navigate('AppTabComponent');
+    this.props.navigation.navigate('AppTabComponent');
   };
   authUser = () => {
-    authenticated = !authenticated;
+    this.state.authenticated = !authenticated;
   };
-
-  if (loading) {
-    return (
-      <View style={styles.loading}>
-        <ActivityIndicator />
-      </View>
-    );
-  } else {
-    if (authenticated) {
-      goWithoutLogin();
-    } else {
+  render() {
+    if (this.state.loading) {
       return (
-        <ScrollView style={styles.container}>
-          <View>
-            <AuthLogo />
-
-            <AuthForm goWithoutLogin={goWithoutLogin} authUser={authUser} />
-          </View>
-        </ScrollView>
+        <View style={styles.loading}>
+          <ActivityIndicator />
+        </View>
       );
+    } else {
+      if (this.state.authenticated) {
+        this.goWithoutLogin();
+      } else {
+        return (
+          <ScrollView style={styles.container}>
+            <View>
+              <AuthLogo />
+
+              <AuthForm
+                goWithoutLogin={this.goWithoutLogin}
+                authUser={this.authUser}
+              />
+            </View>
+          </ScrollView>
+        );
+      }
     }
   }
-};
+}
 
 const styles = StyleSheet.create({
   loading: {

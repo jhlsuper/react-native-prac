@@ -8,10 +8,8 @@ const MyPage = () => {
   const [userEmail, setUser] = useState('');
 
   useEffect(() => {
-    setUser(auth().currentUser.email);
+    setUser(auth().currentUser.email); //파이어베이스의 인증된 유저의 email값 불러오기
   }, []);
-
-  // console.log('datedatedate', weekBefore, monthBefore, today);
 
   return (
     <View style={styles.container}>

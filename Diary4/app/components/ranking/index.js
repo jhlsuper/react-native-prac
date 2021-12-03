@@ -4,17 +4,13 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Ranking from './ranking';
 export default function RankingComponent() {
   // Set an initializing state whilst Firebase connects
-  const [rankLoaded, setRankLoaded] = useState(false);
-  const sayhi = () => {
-    console.log(hi);
-  };
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.titleText}>유저 랭킹</Text>
-
-      {/* <Text>랭킹화면</Text> */}
-      <Ranking />
+      <View>
+        <Ranking />
+      </View>
     </SafeAreaView>
   );
 }
@@ -22,7 +18,7 @@ export default function RankingComponent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignContent: 'center',
+    alignContent: 'flex-start',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#7487C5',
@@ -33,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleText: {
-    paddingTop: 10,
+    marginTop: 50,
     fontSize: 30,
     fontWeight: 'bold',
   },

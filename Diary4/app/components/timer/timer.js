@@ -1,14 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Button,
-  Alert,
-  Pressable,
-  Modal,
-} from 'react-native';
+import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 
 // var _interval;
 
@@ -24,8 +15,7 @@ const Timer = props => {
         setSecond(props.sec);
         setDelay(1000);
       }
-      // console.log('its done');
-      //   cnt++;
+
       props.addCount();
       // console.log(props.cnt);
       setIsRunning(false);
@@ -36,11 +26,11 @@ const Timer = props => {
   useInterval(
     () => {
       if (isRunning === true) {
-        setSecond(second - 1);
         setbtnText('포기하기');
+        setSecond(second - 1);
       } else {
-        setSecond(props.sec);
         setbtnText('시작하기');
+        setSecond(props.sec);
       }
     },
     second >= 1 ? delay : null,
@@ -54,7 +44,6 @@ const Timer = props => {
       // console.log(isRunning);
     }
   };
-  //   setIsRunning(false);
 
   return (
     <View style={styles.press}>
@@ -74,8 +63,11 @@ const Timer = props => {
     </View>
   );
 };
-
+/**
+ * @param delay - 밀리세컨단위 만큼 줄어든다.
+ */
 function useInterval(callback, delay) {
+  //delay만큼 줄여줌
   const savedCallback = useRef();
 
   // Remember the latest callback.

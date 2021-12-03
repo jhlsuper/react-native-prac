@@ -25,74 +25,16 @@ function NewsComponent() {
     nitrogenDioxide: 0, //이산화질소
     nitrogenDioxideLevel: '',
   });
-  const [covidLoaded, setCovidLoaded] = useState(false);
+  const [covidLoaded, setCovidLoaded] = useState(true);
   const [dustLoaded, setDustLoaded] = useState(false);
-  const makeDustData = (item, data) => {
-    let dustData;
-    let value, level;
 
-    for (let key in data) dustData = data[key];
-    //console.log('dustData: ', dustData)
-
-    value = dustData.body.items[0].seoul;
-
-    if (item === 'PM10') {
-      if (value <= 30) {
-        level = '좋음';
-      } else if (value > 30 && value <= 50) {
-        level = '보통';
-      } else if (value > 51 && value <= 100) {
-        level = '나쁨';
-      } else if (value > 101) {
-        level = '매우나쁨';
-      }
-
-      setDust(prevData => ({
-        ...prevData,
-        dateTime: dustData.body.items[0].dataTime,
-        fineDust: value,
-        fineDustLevel: level,
-      }));
-    } else if (item === 'PM25') {
-      if (value <= 15) {
-        level = '좋음';
-      } else if (value > 15 && value <= 25) {
-        level = '보통';
-      } else if (value > 25 && value <= 50) {
-        level = '나쁨';
-      } else if (value > 51) {
-        level = '매우나쁨';
-      }
-
-      setDust(prevData => ({
-        ...prevData,
-        ultraFineDust: value,
-        ultraFineDustLevel: level,
-      }));
-    } else if (item === 'NO2') {
-      if (value <= 0.03) {
-        level = '좋음';
-      } else if (value > 0.03 && value <= 0.06) {
-        level = '보통';
-      } else if (value > 0.06 && value <= 0.2) {
-        level = '나쁨';
-      } else if (value > 0.2) {
-        level = '매우나쁨';
-      }
-
-      setDust(prevData => ({
-        ...prevData,
-        nitrogenDioxide: value,
-        nitrogenDioxideLevel: level,
-      }));
-    }
-    setDustLoaded(true);
-  };
   useEffect(() => {
     let today = formatDate().today;
     let yesterday = formatDate().yesterday;
 
     const requestCovid = axios({
+      //모듈화 필요
+      //COVID 19공공 api get
       method: 'GET',
       url: `http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=0C5aP5Fobx5FMuWckWfHEm78jK4lX7%2BYV%2F%2FfAObXYmqJMd2n6DyvlExAb1vZmGgmc6JJpxPOIcjBkIBrrBJVsA%3D%3D&pageNo=1&numOfRows=10&startCreateDt=${yesterday}&endCreateDt=${today}`,
     })
@@ -104,6 +46,7 @@ function NewsComponent() {
     const fineDust = ['PM10', 'PM25', 'NO2'];
     for (const item of fineDust) {
       const requestDust = axios({
+        //미세먼지 공공 api get
         method: 'GET',
         url: `http://apis.data.go.kr/B552584/ArpltnStatsSvc/getCtprvnMesureLIst?itemCode=${item}&dataGubun=HOUR&pageNo=1&numOfRows=100&returnType=json&serviceKey=0C5aP5Fobx5FMuWckWfHEm78jK4lX7%2BYV%2F%2FfAObXYmqJMd2n6DyvlExAb1vZmGgmc6JJpxPOIcjBkIBrrBJVsA%3D%3D`,
       }).then(response => {
@@ -135,13 +78,78 @@ function NewsComponent() {
     setCovid(covidCopy);
     setCovidLoaded(true);
   };
+  const makeDustData = (item, data) => {
+    let dustData;
+    let value, level;
 
+    for (let key in data) {
+      dustData = data[key];
+    }
+    value = dustData.body.items[0].seoul; //서울의 미세먼지 값을 불러옴
+    console.log('value', value);
+    if (item === 'PM10') {
+      //미세먼지 값 분류
+      //
+      if (value <= 30) {
+        level = '좋음';
+      } else if (value > 30 && value <= 50) {
+        level = '보통';
+      } else if (value > 51 && value <= 100) {
+        level = '나쁨';
+      } else if (value > 101) {
+        level = '매우나쁨';
+      }
+
+      setDust(prevData => ({
+        ...prevData,
+        dateTime: dustData.body.items[0].dataTime,
+        fineDust: value,
+        fineDustLevel: level,
+      }));
+    } else if (item === 'PM25') {
+      //초미세 먼지값 분류
+      if (value <= 15) {
+        level = '좋음';
+      } else if (value > 15 && value <= 25) {
+        level = '보통';
+      } else if (value > 25 && value <= 50) {
+        level = '나쁨';
+      } else if (value > 51) {
+        level = '매우나쁨';
+      }
+
+      setDust(prevData => ({
+        ...prevData,
+        ultraFineDust: value,
+        ultraFineDustLevel: level,
+      }));
+    } else if (item === 'NO2') {
+      //이산화질소 값 분류
+      if (value <= 0.03) {
+        level = '좋음';
+      } else if (value > 0.03 && value <= 0.06) {
+        level = '보통';
+      } else if (value > 0.06 && value <= 0.2) {
+        level = '나쁨';
+      } else if (value > 0.2) {
+        level = '매우나쁨';
+      }
+
+      setDust(prevData => ({
+        ...prevData,
+        nitrogenDioxide: value,
+        nitrogenDioxideLevel: level,
+      }));
+    }
+    setDustLoaded(true); //로딩완료
+  };
   function addComma(num) {
     let regExp = /\B(?=(\d{3})+(?!\d))/g; //쉼표를 3자리수마다 찍어주는 정규표현식
     return num.toString().replace(regExp, ',');
   }
 
   formatDate = () => {
+    //오늘 값과  어제 저장  2021124 와같은 형식
     let todayDate = new Date();
     let today = calculateDate(todayDate);
 
@@ -151,6 +159,7 @@ function NewsComponent() {
     return dateData;
   };
   calculateDate = date => {
+    //date값을 20211124와 같은 형식으로 만듦.
     let year = date.getFullYear();
     let month = (date.getMonth() + 1).toString(); //결과가 0~11이라
     let day = date.getDate().toString();
@@ -162,6 +171,7 @@ function NewsComponent() {
     return finalDate;
   };
   function selectEmoticion() {
+    // 미세먼지 단계에 따른 이모티콘
     const fineDustLevel = dust.fineDustLevel;
     let emoticonPath;
     switch (fineDustLevel) {
@@ -210,7 +220,7 @@ function NewsComponent() {
                 {covid.confirmed}
               </Text>
             </View>
-            {covid.confirmedDailyChange > 0 ? (
+            {covid.confirmedDailyChange > 0 ? ( //환진자가 전날보다 증가 or 감소에 따라 다른 삼각형 render
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <Text style={{fontSize: 20}}>▲ </Text>
                 <Text style={{fontSize: 20}}>
@@ -218,6 +228,7 @@ function NewsComponent() {
                 </Text>
               </View>
             ) : (
+              // 음수값이기때문에 -1 곱해서 양수로 바꿔서 표시
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <Text style={{fontSize: 20}}>▼ </Text>
                 <Text style={{fontSize: 20}}>
@@ -329,7 +340,7 @@ function NewsComponent() {
             </View>
             <View style={{alignItems: 'center', paddingTop: 8}}>
               {(dust.fineDustLevel === '좋음') |
-              (dust.fineDustLevel === '보통') ? (
+              (dust.fineDustLevel === '보통') ? ( //좋음 이면 파란색글씨,보통이면 빨간색 글씨로 표시
                 <Text style={[styles.emoticonText, styles.blueText]}>
                   {dust.fineDustLevel}
                 </Text>

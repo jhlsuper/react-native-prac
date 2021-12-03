@@ -3,7 +3,7 @@ import YouTube from 'react-native-youtube';
 import {StyleSheet, View, Button} from 'react-native';
 const InstructionVideo = () => {
   return (
-    <YouTube
+    <YouTube //youtube player
       videoId="sbTz3lWrItk"
       apiKey="YOUR_YOUTUBE_DEVELOPER_API_KEY_FOR_ANDROID"
       play={true}

@@ -24,16 +24,13 @@ export function delDates(userEmail, dateNCount) {
 }
 
 export function createUser(userEmail) {
-  //유저 생성시 db에 userEmail등록
+  //유저 생성시 db에 userEmail document 추가, data 필드 추가
   console.log('생성됨');
-  firestore()
-    .collection('users')
-    .doc(userEmail)
-    .set({data: []}, {email: userEmail});
+  firestore().collection('users').doc(userEmail).set({data: []});
 }
 export function createUser2(userEmail) {
-  //유저 생성시 db에 userEmail등록
-  console.log('썡성됨ㅁ?');
+  //유저 생성시 db에 userEmail 필드 등록
+  console.log('email 추가됨');
   firestore().collection('users').doc(userEmail).update({email: userEmail});
 }
 export function getCount(userEmail, fun) {
@@ -44,10 +41,10 @@ export function getCount(userEmail, fun) {
     .get()
     .then(querySnapshot => {
       const {data} = querySnapshot.data();
-      console.log('whole data', data);
-      // console.log('data', data[data.length - 1]['count']);
-      console.log('data', data[data.length - 1]);
-      // fun(parseInt(data[data.length - 1]['count']));
+      // console.log('whole data', data);
+
+      // console.log('data', data[data.length - 1]);
+
       if (data[data.length - 1]['date'] == today) {
         fun(parseInt(data[data.length - 1]['count']));
       }

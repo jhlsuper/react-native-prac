@@ -21,26 +21,26 @@ const Ranking = () => {
   const [ranking, setRanking] = useState([]);
   const [rankingArray, setrankingArray] = useState([]);
   const [rankingBefore, setrainkingBefore] = useState(monthBefore);
-  const [pressed, setPressed] = useState([true, false, false]);
-  const [totalUser, settotalUser] = useState();
-  const [colorArray, setColorArray] = useState(['black', 'white', 'white']);
+  const [totalUser, settotalUser] = useState(); //총 유저수를 측정
+  const [pressed, setPressed] = useState([true, false, false]); // 랭킹 날짜 기준 버튼 눌림확인.
+  const [colorArray, setColorArray] = useState(['black', 'white', 'white']); //랭킹 날짜 기준 버튼 색깔
   async function getUsers() {
     await firestore()
       .collection('users')
       .get()
       .then(snapshot => {
         const user_list = [];
-        settotalUser(snapshot.size);
+        settotalUser(snapshot.size); //user 다큐멘트의 모든 사용자 수 저장
         snapshot.docs.forEach(id => {
           firestore()
             .collection('users')
             .doc(id.id)
             .get()
-            .then(user_list.push(id.id), console.log('iddidid', id.id));
+            .then(user_list.push(id.id), console.log('iddidid', id.id)); //유저 id user_list에 추가
         });
         setUsers(user_list);
       });
-    setLoading(false);
+    setLoading(false); //유저 리스트 저장 완료
     getRank();
   }
   const getRank = async () => {
@@ -62,38 +62,37 @@ const Ranking = () => {
               // console.log('dateData[0]', _.values(dateData)[0]);
               //ios _.values(dateData[0])   android _.values(dateData[1])
               if (Platform.OS === 'ios') {
+                //ios 와 android 배열의 순서가 달라서 따로 처리
                 _.values(dateData)[0].forEach(value => {
+                  //
                   if (value.date >= rankingBefore) {
-                    // console.log('each value', value.date, value.count);
-                    // console.log(data.email); //email값.
+                    //월, 주,일 비교날짜 이후면 count
                     temp += value.count;
                   }
                 });
               } else if (Platform.OS === 'android') {
                 _.values(dateData)[1].forEach(value => {
                   if (value.date >= rankingBefore) {
-                    // console.log('each value', value.date, value.count);
-                    // console.log(data.email); //email값.
                     temp += value.count;
                   }
                 });
               }
 
-              temp_list.push({email: dateData.email, count: temp});
+              temp_list.push({email: dateData.email, count: temp}); //이메일값과 총 집중횟수 저장
 
               console.log('temp_list', temp_list);
               if (parseInt(temp_list.length) == parseInt(totalUser)) {
-                setrankingArray(_.reverse(_.sortBy(temp_list, 'count')));
+                setrankingArray(_.reverse(_.sortBy(temp_list, 'count'))); //내림차순으로 총 집중횟수 순으로 정렬한 리스트 저장
                 // setrankingArray(temp_list);
-                setrankLoading(false);
+                setrankLoading(false); // 랭킹 로딩완료
                 // setrankingArray(_.sortBy(rankingArray, 'count'));
 
                 console.log('after Loading', rankLoading);
               }
             });
-          if (rankLoading) {
-            setrankLoading(false);
-          }
+          // if (rankLoading) {
+          //   setrankLoading(false);
+          // }
         });
       } catch (e) {
         console.log(e);
@@ -103,17 +102,18 @@ const Ranking = () => {
 
   useEffect(() => {
     getUsers();
-    // getRank();
     console.log('getUser test2');
   }, []);
   useEffect(() => {
     getRank();
   }, [users]);
   useEffect(() => {
+    //월, 주, 일 기준값이 변했을때 랭킹리스트 갱신
     getRank();
   }, [rankingBefore]);
 
   const Item = ({data}) => {
+    //flat list의 Item
     return (
       <View style={styles.item}>
         <Text>총 {data.count}번.</Text>
@@ -122,21 +122,21 @@ const Ranking = () => {
     );
   };
   const resetDate = (when, button) => {
+    //button 값은 0,1,2 -> 월, 주, 일
+    //기준 날짜에 따라서 랭킹 다시 갱신
     if (!pressed[button]) {
-      const pressed_list = [false, false, false];
-      const pressed_color = ['white', 'white', 'white'];
-      setrainkingBefore(when);
-      setrankLoading(true);
-      pressed_list[button] = true;
-      pressed_color[button] = 'black';
+      const pressed_list = [false, false, false]; //안눌린 리스트
+      const pressed_color = ['white', 'white', 'white']; //모두 흰색 리스트
+      setrainkingBefore(when); //기준 날짜 갱신
+      setrankLoading(true); //랭킹 로딩중
+      pressed_list[button] = true; //눌린 버튼값 지정
+      pressed_color[button] = 'black'; //버튼 색깔 지정
       setPressed(pressed_list);
       setColorArray(pressed_color);
       console.log('****pressed*****', pressed);
     }
   };
   const renderItem = ({item}) => {
-    console.log('aaa', item);
-
     return <Item data={item} />;
   };
   if (rankLoading) {
@@ -146,7 +146,6 @@ const Ranking = () => {
       </View>
     );
   }
-  // console.log('before date', rankingBefore);
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>

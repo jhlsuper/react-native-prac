@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Modal, StyleSheet, Text, Pressable, View} from 'react-native';
-import InstructionVideo from './instruction_video';
+import InstructionVideo from './instructionVideo';
 const Instruction = props => {
   return (
     <View style={styles.centeredView}>

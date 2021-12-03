@@ -4,17 +4,17 @@ import axios from 'axios';
 import auth from '@react-native-firebase/auth';
 import {SIGNUP} from '../../utils/misc';
 
-export function signIn(data) {
-  console.log(data);
+// export function signIn(data) {
+//   console.log(data);
 
-  return {
-    type: SIGN_IN,
-    payload: {
-      email: data.email,
-      token: data.password, //로그인 상태를 토큰으로 저장
-    },
-  };
-}
+//   return {
+//     type: SIGN_IN,
+//     payload: {
+//       email: data.email,
+//       token: data.password, //로그인 상태를 토큰으로 저장
+//     },
+//   };
+// }
 export function signUp(data) {
   auth()
     .createUserWithEmailAndPassword(data.email, data.password)
