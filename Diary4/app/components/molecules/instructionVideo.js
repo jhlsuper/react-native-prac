@@ -1,10 +1,10 @@
 import React from 'react';
 import YouTube from 'react-native-youtube';
-import {StyleSheet, View, Button} from 'react-native';
+import {YOUTUBE_ID} from '../../i18n/msg';
 const InstructionVideo = () => {
   return (
     <YouTube //youtube player
-      videoId="sbTz3lWrItk"
+      videoId={YOUTUBE_ID}
       apiKey="YOUR_YOUTUBE_DEVELOPER_API_KEY_FOR_ANDROID"
       play={true}
       fullscreen={false}
@@ -17,7 +17,5 @@ const InstructionVideo = () => {
     />
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default InstructionVideo;

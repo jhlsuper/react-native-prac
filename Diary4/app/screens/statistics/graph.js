@@ -12,7 +12,8 @@ import {ContributionGraph} from 'react-native-chart-kit';
 import firestore from '@react-native-firebase/firestore';
 import _, {forEach} from 'underscore';
 import auth from '@react-native-firebase/auth';
-
+import chartConfig from '../../utils/forms/charconfig';
+import UserInfo from '../../components/molecules/userInfo';
 // const loggedEmail = user.email;
 
 const Graph = () => {
@@ -70,19 +71,7 @@ const Graph = () => {
     {date: '2021-11-06', count: 4},
     {date: '2021-11-15', count: 10},
   ];
-  const chartConfig = {
-    //차트 설정값
-    backgroundGradientFrom: 'white',
-    backgroundGradientFromOpacity: 1,
-    backgroundGradientTo: 'white',
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(128,128,128,${opacity})`, //차트 색깔
-    labelColor: (opacity = 1) => 'green', //달력 월 -색깔
 
-    strokeWidth: 3, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
-  };
   if (loading) {
     return (
       <View style={styles.container}>
@@ -94,12 +83,7 @@ const Graph = () => {
       <View style={styles.container}>
         {/* <Text style={styles.text}>통계</Text> */}
         <View style={styles.infoContainer}>
-          <Text style={styles.titleText}>
-            총 집중한 시간 : {totalTime * 10} 분
-          </Text>
-          <Text style={styles.titleText}>
-            가장 최근 공부한 날 : {mostRecent}
-          </Text>
+          <UserInfo total={totalTime * 10} recent={mostRecent} />
         </View>
         <View style={styles.graphContainer}>
           <ContributionGraph

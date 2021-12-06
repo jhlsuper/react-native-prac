@@ -6,12 +6,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // import {IconFill, IconOutline} from '@ant-design/icons-react-native';
 //Screens
 
-import SignIn from './components/auth';
-import Timer from './components/timer';
-import News from './components/news';
-import Stats from './components/statistics';
-import MyPage from './components/mypage';
-import RankingComponent from './components/ranking';
+import SignIn from './screens/auth';
+import Timer from './screens/timer';
+import News from './screens/news';
+import Stats from './screens/statistics';
+import MyPage from './screens/mypage';
+import RankingComponent from './screens/ranking';
 const AuthStack = createStackNavigator();
 const MainScreenTab = createBottomTabNavigator();
 

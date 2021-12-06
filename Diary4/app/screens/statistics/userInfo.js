@@ -1,21 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {
-  ActivityIndicator,
-  Button,
-  TextInput,
-  Text,
-  StyleSheet,
-  View,
-  Dimensions,
-} from 'react-native';
-import {BarChart, ContributionGraph} from 'react-native-chart-kit';
-import firestore from '@react-native-firebase/firestore';
+import {Text, StyleSheet, View} from 'react-native';
 
-const UserInfo = () => {
+const UserInfo = props => {
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.titleText}>총 집중한 시간 : </Text> */}
-      {/* <Text style={styles.titleText}>가장 최근 공부한 날 :</Text> */}
+      <Text style={styles.titleText}>총 집중한 시간 : {props.total}</Text>
+      <Text style={styles.titleText}>가장 최근 공부한 날 : {props.recent}</Text>
     </View>
   );
 };

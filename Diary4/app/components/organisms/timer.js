@@ -1,8 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
-
-// var _interval;
-
+import {Text, View, TouchableOpacity} from 'react-native';
+import styles_organisms from './styles_organisms';
 const Timer = props => {
   const [second, setSecond] = useState(parseInt(props.sec));
   const [delay, setDelay] = useState(1000);
@@ -17,7 +15,6 @@ const Timer = props => {
       }
 
       props.addCount();
-      // console.log(props.cnt);
       setIsRunning(false);
       setbtnText('다시하기');
     }
@@ -29,7 +26,7 @@ const Timer = props => {
         setbtnText('포기하기');
         setSecond(second - 1);
       } else {
-        setbtnText('시작하기');
+        setbtnText('다시하기');
         setSecond(props.sec);
       }
     },
@@ -38,26 +35,27 @@ const Timer = props => {
   const buttonPressed = () => {
     if (isRunning === true) {
       setIsRunning(false);
-      // console.log(isRunning);
     } else {
       setIsRunning(true);
-      // console.log(isRunning);
     }
   };
 
   return (
-    <View style={styles.press}>
-      <Text style={styles.text}>
+    <View style={styles_organisms.press}>
+      <Text style={styles_organisms.textWhite75}>
         {' '}
         {Math.floor(second / 60)} 분 : {second % 60} 초
       </Text>
-      <View style={styles.press}>
-        <TouchableOpacity style={styles.press} onPress={buttonPressed}>
-          {/* <Text>{btnText}</Text> */}
-          <Text title={btnText} style={styles.btnText} onPress={buttonPressed}>
+      <View style={styles_organisms.press}>
+        <TouchableOpacity
+          style={styles_organisms.press}
+          onPress={buttonPressed}>
+          <Text
+            title={btnText}
+            style={styles_organisms.btnText}
+            onPress={buttonPressed}>
             {btnText}
           </Text>
-          {/* <Button title={btnText} color="white" onPress={buttonPressed} /> */}
         </TouchableOpacity>
       </View>
     </View>
@@ -86,36 +84,5 @@ function useInterval(callback, delay) {
     }
   }, [delay]);
 }
-
-const styles = StyleSheet.create({
-  timecontainer: {
-    flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
-  },
-
-  text: {
-    fontSize: 75,
-    color: 'white',
-  },
-  count_text: {
-    marginTop: 10,
-  },
-  press: {
-    alignContent: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    color: 'white',
-    alignContent: 'center',
-    justifyContent: 'center',
-  },
-  btnText: {
-    marginTop: 5,
-    color: 'white',
-    fontSize: 20,
-  },
-});
 
 export default Timer;

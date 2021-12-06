@@ -9,13 +9,11 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Graph from './graph';
-import UserInfo from './userInfo';
+import Statistics_Templates from '../../components/templates/statistics_templates';
 export default function Statiscs() {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.titleText}>한달 통계</Text>
-      <UserInfo />
-      <Graph />
+      <Statistics_Templates />
     </SafeAreaView>
   );
 }
@@ -27,14 +25,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#7487C5',
-  },
-  titleText: {
-    paddingTop: 10,
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-  color: {
-    marginTop: 100,
-    backgroundColor: 'gray',
   },
 });

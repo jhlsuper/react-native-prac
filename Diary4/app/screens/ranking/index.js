@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, ActivityIndicator} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Ranking from './ranking';
+
 export default function RankingComponent() {
   // Set an initializing state whilst Firebase connects
 
