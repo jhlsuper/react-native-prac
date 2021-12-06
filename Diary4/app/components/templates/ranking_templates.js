@@ -19,6 +19,8 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import TitleText from '../molecules/titleText';
+import DateBeforeButton from '../molecules/dateBeforeButton';
+import DateBeforeButtonArray from '../organisms/dateBeforeButtonArray';
 const RankingTemplates = () => {
   // console.log('datedatedate', weekBefore, monthBefore, today);
   const [userLoading, setLoading] = useState(true);
@@ -83,7 +85,7 @@ const RankingTemplates = () => {
       console.log('****pressed*****', pressed);
     }
   };
-  console.log(userLoading);
+
   const renderItem = ({item}) => {
     return <Item data={item} />;
   };
@@ -107,7 +109,11 @@ const RankingTemplates = () => {
               alignItems: 'center',
               justifyContent: 'center',
             }}></View>
-          <View
+          <DateBeforeButtonArray
+            colorArray={colorArray}
+            resetDate={resetDate}
+          />
+          {/* <View
             style={{
               flex: 1,
 
@@ -115,28 +121,28 @@ const RankingTemplates = () => {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <TouchableOpacity
-              style={styles.buttonDate}
-              onPress={() => resetDate(monthBefore, 0)}>
-              <Text style={{...styles.buttonText, color: colorArray[0]}}>
-                월
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonDate}
-              onPress={() => resetDate(weekBefore, 1)}>
-              <Text style={{...styles.buttonText, color: colorArray[1]}}>
-                주
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonDate}
-              onPress={() => resetDate(today, 2)}>
-              <Text style={{...styles.buttonText, color: colorArray[2]}}>
-                일
-              </Text>
-            </TouchableOpacity>
-          </View>
+            <DateBeforeButton
+              text={'월'}
+              index={0}
+              before={monthBefore}
+              resetDate={resetDate}
+              colorArray={colorArray}
+            />
+            <DateBeforeButton
+              text={'주'}
+              index={1}
+              before={weekBefore}
+              resetDate={resetDate}
+              colorArray={colorArray}
+            />
+            <DateBeforeButton
+              text={'일'}
+              index={2}
+              before={today}
+              resetDate={resetDate}
+              colorArray={colorArray}
+            />
+          </View> */}
         </View>
       </View>
       <View style={styles.rankginContainer}>

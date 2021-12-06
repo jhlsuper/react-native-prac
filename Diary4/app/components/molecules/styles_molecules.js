@@ -113,4 +113,17 @@ export default styles_molecules = StyleSheet.create({
     fontSize: 23,
     fontWeight: 'bold',
   },
+
+  ///ranking
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  buttonDate: {
+    backgroundColor: 'gray',
+    alignItems: 'flex-end',
+    padding: 5,
+    margin: 1,
+    borderRadius: 8,
+  },
 });
