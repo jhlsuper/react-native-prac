@@ -99,13 +99,13 @@ function News_Templates() {
       //미세먼지 값 분류
       //
       if (value <= 30) {
-        level = '좋음';
+        level = 0;
       } else if (value > 30 && value <= 50) {
-        level = '보통';
+        level = 1;
       } else if (value > 51 && value <= 100) {
-        level = '나쁨';
+        level = 2;
       } else if (value > 101) {
-        level = '매우나쁨';
+        level = 3;
       }
 
       setDust(prevData => ({
@@ -117,13 +117,13 @@ function News_Templates() {
     } else if (item === 'PM25') {
       //초미세 먼지값 분류
       if (value <= 15) {
-        level = '좋음';
+        level = 0;
       } else if (value > 15 && value <= 25) {
-        level = '보통';
+        level = 1;
       } else if (value > 25 && value <= 50) {
-        level = '나쁨';
+        level = 2;
       } else if (value > 51) {
-        level = '매우나쁨';
+        level = 3;
       }
 
       setDust(prevData => ({
@@ -134,13 +134,13 @@ function News_Templates() {
     } else if (item === 'NO2') {
       //이산화질소 값 분류
       if (value <= 0.03) {
-        level = '좋음';
+        level = 0;
       } else if (value > 0.03 && value <= 0.06) {
-        level = '보통';
+        level = 1;
       } else if (value > 0.06 && value <= 0.2) {
-        level = '나쁨';
+        level = 2;
       } else if (value > 0.2) {
-        level = '매우나쁨';
+        level = 3;
       }
 
       setDust(prevData => ({

@@ -8,15 +8,17 @@ const NewsDustText = props => {
         <Text style={styles_molecules.mainText}>{props.title}</Text>
       </View>
       <View style={{flex: 1, alignItems: 'center'}}>
-        {(props.level === '좋음') | (props.level === '보통') ? (
+        {(props.level === 0) | (props.level === 1) ? (
           <Text
             style={[styles_molecules.emoticonText, styles_molecules.blueText]}>
-            {props.level}
+            {/* {props.level} */}
+            좋음
           </Text>
         ) : (
           <Text
             style={[styles_molecules.emoticonText, styles_molecules.redText]}>
-            {props.level}
+            {/* {props.level} */}
+            보통
           </Text>
         )}
       </View>

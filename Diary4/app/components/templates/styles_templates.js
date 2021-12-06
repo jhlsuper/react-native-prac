@@ -40,7 +40,10 @@ export default styles_templates = StyleSheet.create({
   /// statistics
   container: {
     flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#7487C5',
   },
   graphContainer: {
     flex: 5,
