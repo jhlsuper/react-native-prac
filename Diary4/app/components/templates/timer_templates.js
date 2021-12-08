@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react';
 import ModalButton from '../molecules/modalButton';
 import Instruction from '../organisms/instruction';
 import Timer from '../organisms/timer';
-import {Text, View} from 'react-native';
+import {PermissionsAndroid, Text, View} from 'react-native';
 import styles_templates from './styles_templates';
 import auth from '@react-native-firebase/auth';
+import CameraRoll from '@react-native-community/cameraroll';
 import {
   setDates,
   delDates,
@@ -13,6 +14,8 @@ import {
   getCount,
 } from '../../database/firestore';
 import {getData, storeData, getAllData, getIntData} from '../../database/async';
+import {SECOND} from '../../i18n/msg';
+
 const Timer_Templates = () => {
   const user = auth().currentUser;
   const [stop, setStop] = useState(false);
@@ -22,11 +25,40 @@ const Timer_Templates = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [asyncToday, setToday] = useState();
 
+  const [data, setData] = '';
+  async function hasAndroidPermission() {
+    const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+
+    const hasPermission = await PermissionsAndroid.check(permission);
+    if (hasPermission) {
+      return true;
+    }
+
+    const status = await PermissionsAndroid.request(permission);
+    return status === 'granted';
+  }
+
+  const getGallary = () => {
+    CameraRoll.getPhotos({
+      first: 3,
+      assetType: 'Photos',
+    })
+      .then(res => {
+        // setData(res.edges);
+        console.log(res.edges);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  console.log(data);
   useEffect(() => {
     getCount(user.email, setCounts);
     getData('Date', setToday);
-
     getAllData();
+    // hasAndroidPermission();
+    getGallary();
     // getData('email', setEmail);
   }, []);
   console.log('count', count);
@@ -51,14 +83,14 @@ const Timer_Templates = () => {
           turnVisible={() => setModalVisible(!modalVisible)}
         />
       </View>
-
       <Instruction
         visible={modalVisible}
         turnVisible={() => setModalVisible(!modalVisible)}
       />
+
       <View style={styles_templates.flex3}>
         {/* sec: 기준 시간 현재 완료 값, setCount 전달*/}
-        <Timer sec={5} cnt={count} addCount={() => setCounts(count + 1)} />
+        <Timer sec={SECOND} cnt={count} addCount={() => setCounts(count + 1)} />
       </View>
       <View style={styles_templates.flex1}>
         <Text style={styles_templates.text}>{`${count} 번 완료`}</Text>

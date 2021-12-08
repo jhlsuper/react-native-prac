@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-  Button,
-  Alert,
-  Pressable,
-  Modal,
-  Image,
-} from 'react-native';
+import {Text, Pressable} from 'react-native';
 import {MODAL_BUTTON_TEXT} from '../../i18n/msg';
 import styles_molecules from './styles_molecules';
 const ModalButton = props => {

@@ -1,17 +1,12 @@
-import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, View, Text, Image, ActivityIndicator} from 'react-native';
-import axios from 'axios';
-import {throwStatement} from '@babel/types';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import NewsCOVIDText from '../molecules/newsCOVIDText';
-import StandardText from '../molecules/standardText';
-import TitleText from '../molecules/titleText';
 import CoivdData from '../organisms/covidData';
-import DustEmoticon from '../molecules/dustEmoticon';
-import NewsDustText from '../molecules/newsDustText';
 import DustData from '../organisms/dustData';
-import styles_molecules from '../molecules/styles_molecules';
 import styles_templates from './styles_templates';
+import {requestCovidData, requestDustData} from '../../api/newsapi';
+import {addComma} from '../../utils/forms/stringForms';
+import {KOREA, SEOUL} from '../../i18n/msg';
 function News_Templates() {
   const [covid, setCovid] = useState({
     dateTime: '',
@@ -36,31 +31,10 @@ function News_Templates() {
   });
   const [covidLoaded, setCovidLoaded] = useState(true);
   const [dustLoaded, setDustLoaded] = useState(false);
-  const fineDust = ['PM10', 'PM25', 'NO2'];
+
   useEffect(() => {
-    let today = formatDate().today;
-    let yesterday = formatDate().yesterday;
-
-    const requestCovid = axios({
-      //모듈화 필요
-      //COVID 19공공 api get
-      method: 'GET',
-      url: `http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=0C5aP5Fobx5FMuWckWfHEm78jK4lX7%2BYV%2F%2FfAObXYmqJMd2n6DyvlExAb1vZmGgmc6JJpxPOIcjBkIBrrBJVsA%3D%3D&pageNo=1&numOfRows=10&startCreateDt=${yesterday}&endCreateDt=${today}`,
-    })
-      .then(response => {
-        makeCovidData(response.data);
-      })
-      .catch(e => console.log(e));
-
-    for (const item of fineDust) {
-      const requestDust = axios({
-        //미세먼지 공공 api get
-        method: 'GET',
-        url: `http://apis.data.go.kr/B552584/ArpltnStatsSvc/getCtprvnMesureLIst?itemCode=${item}&dataGubun=HOUR&pageNo=1&numOfRows=100&returnType=json&serviceKey=0C5aP5Fobx5FMuWckWfHEm78jK4lX7%2BYV%2F%2FfAObXYmqJMd2n6DyvlExAb1vZmGgmc6JJpxPOIcjBkIBrrBJVsA%3D%3D`,
-      }).then(response => {
-        makeDustData(item, response.data);
-      });
-    }
+    requestCovidData(makeCovidData);
+    requestDustData(makeDustData);
   }, []);
 
   makeCovidData = data => {
@@ -151,40 +125,12 @@ function News_Templates() {
     }
     setDustLoaded(true); //로딩완료
   };
-  function addComma(num) {
-    let regExp = /\B(?=(\d{3})+(?!\d))/g; //쉼표를 3자리수마다 찍어주는 정규표현식
-    return num.toString().replace(regExp, ',');
-  }
 
-  formatDate = () => {
-    //오늘 값과  어제 저장  2021124 와같은 형식
-    let todayDate = new Date();
-    let today = calculateDate(todayDate);
-
-    let yesterdayDate = new Date(Date.now() - 86400000); //현재에서 24시간전 의 시간
-    let yesterday = calculateDate(yesterdayDate);
-    let dateData = {today: today, yesterday: yesterday};
-    return dateData;
-  };
-  calculateDate = date => {
-    //date값을 20211124와 같은 형식으로 만듦.
-    let year = date.getFullYear();
-    let month = (date.getMonth() + 1).toString(); //결과가 0~11이라
-    let day = date.getDate().toString();
-
-    if (month.length < 2) month = `0${month}`;
-    if (day.length < 2) day = `0${day}`;
-
-    let finalDate = `${year}${month}${day}`;
-    return finalDate;
-  };
-
-  // console.log('dust', {dust});
   if (covidLoaded && dustLoaded) {
     return (
       <SafeAreaView style={styles_templates.newsContainer}>
-        <CoivdData where={'대한민국'} covid={covid} />
-        <DustData where={'서울'} dust={dust} />
+        <CoivdData where={KOREA} covid={covid} />
+        <DustData where={SEOUL} dust={dust} />
       </SafeAreaView>
     );
   } else {

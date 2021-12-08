@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import styles_organisms from './styles_organisms';
+import {GIVE_UP, RE_START, START} from '../../i18n/msg';
 const Timer = props => {
   const [second, setSecond] = useState(parseInt(props.sec));
   const [delay, setDelay] = useState(1000);
   const [isRunning, setIsRunning] = useState(false);
-  const [btnText, setbtnText] = useState('시작하기');
+  const [btnText, setbtnText] = useState(START);
 
   useEffect(() => {
     if (second == 0) {
@@ -16,17 +17,17 @@ const Timer = props => {
 
       props.addCount();
       setIsRunning(false);
-      setbtnText('다시하기');
+      setbtnText(RE_START);
     }
   }, [second, isRunning]);
 
   useInterval(
     () => {
       if (isRunning === true) {
-        setbtnText('포기하기');
+        setbtnText(GIVE_UP);
         setSecond(second - 1);
       } else {
-        setbtnText('다시하기');
+        setbtnText(RE_START);
         setSecond(props.sec);
       }
     },

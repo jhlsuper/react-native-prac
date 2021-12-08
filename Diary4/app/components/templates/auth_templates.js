@@ -1,20 +1,8 @@
-import 'react-native-gesture-handler';
-import React, {useState} from 'react';
-
-import {
-  StyleSheet,
-  Text,
-  ActivityIndicator,
-  View,
-  ScrollView,
-} from 'react-native';
-import AuthLogo from './authLogo';
-import AuthForm from './authForm';
-// import AuthForm from '../../components/organisms/authForm';
-import {Component} from 'react';
-import Auth_Templates from '../../components/templates/auth_templates';
-
-const AuthComponent = props => {
+import React, {useState, Component} from 'react';
+import {View, ScrollView, ActivityIndicator, StyleSheet} from 'react-native';
+import AuthForm from '../organisms/authForm';
+import LogoComponent from '../molecules/logoImage';
+const Auth_Templates = props => {
   const [loading, setLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   goWithoutLogin = () => {
@@ -63,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AuthComponent;
+export default Auth_Templates;

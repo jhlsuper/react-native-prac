@@ -32,6 +32,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* Diary4Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Diary4Tests.m; sourceTree = "<group>"; };
 		0A52388F273E2C250083E0A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0AB0EF5B275F444700062F24 /* Diary4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Diary4.entitlements; path = Diary4/Diary4.entitlements; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Diary4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Diary4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Diary4/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Diary4/AppDelegate.m; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 		13B07FAE1A68108700A75B9A /* Diary4 */ = {
 			isa = PBXGroup;
 			children = (
+				0AB0EF5B275F444700062F24 /* Diary4.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -501,6 +503,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Diary4/Diary4.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Diary4/Info.plist;
@@ -527,6 +530,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Diary4/Diary4.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = Diary4/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

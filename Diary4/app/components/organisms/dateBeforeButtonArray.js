@@ -2,6 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import DateBeforeButton from '../molecules/dateBeforeButton';
 import {monthBefore, weekBefore, today} from '../../database/firestore';
+import {DAY, MONTH, WEEK} from '../../i18n/msg';
 const DateBeforeButtonArray = props => {
   return (
     <View
@@ -13,21 +14,21 @@ const DateBeforeButtonArray = props => {
         justifyContent: 'center',
       }}>
       <DateBeforeButton
-        text={'월'}
+        text={MONTH}
         index={0}
         before={monthBefore}
         resetDate={props.resetDate}
         colorArray={props.colorArray}
       />
       <DateBeforeButton
-        text={'주'}
+        text={WEEK}
         index={1}
         before={weekBefore}
         resetDate={props.resetDate}
         colorArray={props.colorArray}
       />
       <DateBeforeButton
-        text={'일'}
+        text={DAY}
         index={2}
         before={today}
         resetDate={props.resetDate}

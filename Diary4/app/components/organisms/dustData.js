@@ -6,12 +6,18 @@ import DustEmoticon from '../molecules/dustEmoticon';
 import StandardText from '../molecules/standardText';
 import NewsDustText from '../molecules/newsDustText';
 import EmoticionText from '../molecules/emoticionText';
+import {
+  DUST_TITLE,
+  FINE_DUST,
+  NITROGENDIOXIDE,
+  ULTRA_FINE_DUST,
+} from '../../i18n/msg';
 const DustData = props => {
   return (
     <View style={styles_organisms.dustContainer}>
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         {/* <Text style={styles_organisms.titleText}># 미세먼지</Text> */}
-        <TitleText title={'# 미세먼지'} />
+        <TitleText title={DUST_TITLE} />
       </View>
       <View
         style={{
@@ -30,18 +36,18 @@ const DustData = props => {
         <EmoticionText dust={props.dust} />
       </View>
       <NewsDustText
-        title={'미세먼지'}
+        title={FINE_DUST}
         amount={props.dust.fineDust}
         level={props.dust.fineDustLevel}
       />
 
       <NewsDustText
-        title={'초미세먼지'}
+        title={ULTRA_FINE_DUST}
         amount={props.dust.ultraFineDust}
         level={props.dust.ultraFineDustLevel}
       />
       <NewsDustText
-        title={'이산화질소'}
+        title={NITROGENDIOXIDE}
         amount={props.dust.nitrogenDioxide}
         level={props.dust.nitrogenDioxideLevel}
       />

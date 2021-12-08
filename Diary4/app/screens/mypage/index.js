@@ -1,21 +1,11 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {logOut} from '../../store/actions/user_actions';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import MyPage from './mypage';
+import {StyleSheet} from 'react-native';
+
+import MyPage_Templates from '../../components/templates/mypage_templates';
 export default function MyPageCompnent() {
   // Set an initializing state whilst Firebase connects
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.titleText}>마이 페이지</Text>
-      <MyPage />
-      <TouchableOpacity style={styles.button} onPress={logOut}>
-        <Text style={styles.logoutText}>로그 아웃</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
-  );
+  return <MyPage_Templates />;
 }
 
 const styles = StyleSheet.create({

@@ -35,7 +35,6 @@ const AuthComponent = props => {
         <ScrollView style={styles.container}>
           <View>
             <AuthLogo />
-
             <AuthForm goWithoutLogin={goWithoutLogin} authUser={authUser} />
           </View>
         </ScrollView>

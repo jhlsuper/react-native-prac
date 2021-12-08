@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
 import React from 'react';
+import {MAIN_BACKGROUND} from '../../i18n/msg';
 
 export default styles_templates = StyleSheet.create({
   screen: {
     flex: 6,
-    backgroundColor: '#7487C5',
+    backgroundColor: MAIN_BACKGROUND,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -24,7 +25,7 @@ export default styles_templates = StyleSheet.create({
   newsContainer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#7487C5',
+    backgroundColor: MAIN_BACKGROUND,
     // backgroundColor: '#eee',
     height: '100%',
     padding: 10,
@@ -32,7 +33,7 @@ export default styles_templates = StyleSheet.create({
 
   loading: {
     flex: 1,
-    backgroundColor: '#7487C5',
+    backgroundColor: MAIN_BACKGROUND,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -43,7 +44,7 @@ export default styles_templates = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#7487C5',
+    backgroundColor: MAIN_BACKGROUND,
   },
   graphContainer: {
     flex: 5,
@@ -55,5 +56,13 @@ export default styles_templates = StyleSheet.create({
     marginTop: 90,
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  ///ranking
+  topContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  rankginContainer: {
+    flex: 7,
   },
 });

@@ -9,6 +9,8 @@ import styles_templates from './styles_templates';
 import {getStatisticsData} from '../../database/firestore';
 import Graph from '../molecules/graph';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import LoadingIndicator from '../molecules/loadingIndicator';
+import {USER_STATISTICS} from '../../i18n/msg';
 const Statistics_Templates = () => {
   const user = auth().currentUser; //사용자
   const loggedEmail = user.email; //사용자 이메일
@@ -30,15 +32,11 @@ const Statistics_Templates = () => {
   }, []);
 
   if (loading) {
-    return (
-      <View style={styles_templates.container}>
-        <ActivityIndicator />
-      </View>
-    );
+    return <LoadingIndicator />;
   } else {
     return (
       <SafeAreaView style={styles_templates.container}>
-        <TitleText title={'사용자 통계'} />
+        <TitleText title={USER_STATISTICS} />
         <View style={styles_templates.infoContainer}>
           <UserInfo total={totalTime * 10} recent={mostRecent} />
         </View>

@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import React from 'react';
+import {BLUE_TEXT, MAIN_BACKGROUND, RED_TEXT} from '../../i18n/msg';
 
 export default styles_organisms = StyleSheet.create({
   flex1: {
@@ -49,10 +50,10 @@ export default styles_organisms = StyleSheet.create({
     fontWeight: 'bold',
   },
   redText: {
-    color: '#C00000',
+    color: RED_TEXT,
   },
   blueText: {
-    color: '#0070C0',
+    color: BLUE_TEXT,
   },
   grayText: {
     // color: '#808080',
@@ -66,7 +67,7 @@ export default styles_organisms = StyleSheet.create({
   newsContainer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#7487C5',
+    backgroundColor: MAIN_BACKGROUND,
     // backgroundColor: '#eee',
     height: '100%',
     padding: 10,
@@ -79,5 +80,18 @@ export default styles_organisms = StyleSheet.create({
   emoticonText: {
     fontSize: 23,
     fontWeight: 'bold',
+  },
+
+  /// item
+  item: {
+    backgroundColor: 'green',
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 10,
+  },
+  email: {
+    fontSize: 30,
   },
 });

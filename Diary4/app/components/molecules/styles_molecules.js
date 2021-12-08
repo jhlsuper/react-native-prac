@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import React from 'react';
+import {BLUE_TEXT, RED_TEXT, WHITE} from '../../i18n/msg';
 
 export default styles_molecules = StyleSheet.create({
   titleText: {
@@ -20,7 +21,7 @@ export default styles_molecules = StyleSheet.create({
     // #F194FF
   },
   modalTextStyle: {
-    color: 'white',
+    color: WHITE,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -34,7 +35,7 @@ export default styles_molecules = StyleSheet.create({
   modalView: {
     flex: 1,
     margin: 40,
-    backgroundColor: 'white',
+    backgroundColor: WHITE,
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -90,10 +91,10 @@ export default styles_molecules = StyleSheet.create({
     fontWeight: 'bold',
   },
   redText: {
-    color: '#C00000',
+    color: RED_TEXT,
   },
   blueText: {
-    color: '#0070C0',
+    color: BLUE_TEXT,
   },
   grayText: {
     // color: '#808080',
@@ -125,5 +126,32 @@ export default styles_molecules = StyleSheet.create({
     padding: 5,
     margin: 1,
     borderRadius: 8,
+  },
+
+  //Statistics
+  infoContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  infoTitleText: {
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+
+  //myPage
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  topContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  userInfoTxt: {
+    fontSize: 30,
+    color: 'lightgray',
   },
 });
