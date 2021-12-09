@@ -1,7 +1,7 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
 import {ContributionGraph} from 'react-native-chart-kit';
-import {todayLong} from '../../database/firestore';
+import {todayLong} from '../../utils/dates';
 import {
   GRAPH_DAYS,
   GRAPH_HEIGHT,

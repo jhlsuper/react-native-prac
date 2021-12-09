@@ -9,7 +9,7 @@ import {thisExpression} from '@babel/types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {signUp, signIn} from '../../screens/auth/firebaseAuth';
-const AuthForm = () => {
+const AuthForm = props => {
   const [type, setType] = useState('로그인');
   const [action, setAction] = useState('로그인');
   const [actionMode, setActionMode] = useState('회원가입');
@@ -65,13 +65,15 @@ const AuthForm = () => {
     setHasErrors(false);
 
     let formCopy = form;
-    console.log();
-    formCopy[name].value = value;
+
+    formCopy[name].value += value;
+    // console.log(formCopy[name].value);
+    console.log(name, formCopy.email.value);
     let rules = formCopy[name].rules;
     let valid = ValidationRules(value, rules, formCopy);
     formCopy[name].valid = valid;
     setForm(formCopy);
-
+    console.log(form);
     // console.warn(form);
   };
   confirmPassword = () =>

@@ -23,7 +23,7 @@ const AuthComponent = props => {
   authUser = () => {
     authenticated = !authenticated;
   };
-
+  // return <Auth_Templates />;
   if (loading) {
     return (
       <View style={styles.loading}>

@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import React from 'react';
 import {MAIN_BACKGROUND} from '../../i18n/msg';
 
 export default styles_templates = StyleSheet.create({
@@ -70,5 +69,14 @@ export default styles_templates = StyleSheet.create({
   bottom: {
     flex: 1,
     justifyContent: 'flex-end',
+  },
+
+  //auth
+  authcontainer: {
+    flex: 1,
+    backgroundColor: '#7487C5',
+    paddingTop: 130,
+    paddingLeft: 50,
+    paddingRight: 50,
   },
 });

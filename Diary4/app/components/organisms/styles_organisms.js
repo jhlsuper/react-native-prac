@@ -81,6 +81,19 @@ export default styles_organisms = StyleSheet.create({
     fontSize: 23,
     fontWeight: 'bold',
   },
+  flex7: {
+    flex: 0.7,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  //ranking
+  flexrow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
   /// item
   item: {
@@ -93,5 +106,12 @@ export default styles_organisms = StyleSheet.create({
   },
   email: {
     fontSize: 30,
+  },
+  //mypage
+  logo: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    margin: 20,
   },
 });

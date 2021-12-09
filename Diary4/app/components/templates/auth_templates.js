@@ -2,6 +2,9 @@ import React, {useState, Component} from 'react';
 import {View, ScrollView, ActivityIndicator, StyleSheet} from 'react-native';
 import AuthForm from '../organisms/authForm';
 import LogoComponent from '../molecules/logoImage';
+import styles_templates from './styles_templates';
+import LogoImage from '../molecules/logoImage';
+
 const Auth_Templates = props => {
   const [loading, setLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
@@ -14,7 +17,7 @@ const Auth_Templates = props => {
 
   if (loading) {
     return (
-      <View style={styles.loading}>
+      <View style={styles_templates.loading}>
         <ActivityIndicator />
       </View>
     );
@@ -23,9 +26,10 @@ const Auth_Templates = props => {
       goWithoutLogin();
     } else {
       return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles_templates.authcontainer}>
           <View>
-            <AuthLogo />
+            {/* <AuthLogo /> */}
+            <LogoImage />
 
             <AuthForm goWithoutLogin={goWithoutLogin} authUser={authUser} />
           </View>
@@ -34,21 +38,5 @@ const Auth_Templates = props => {
     }
   }
 };
-
-const styles = StyleSheet.create({
-  loading: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#7487C5',
-    paddingTop: 130,
-    paddingLeft: 50,
-    paddingRight: 50,
-  },
-});
 
 export default Auth_Templates;

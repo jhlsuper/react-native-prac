@@ -49,6 +49,7 @@ const RankingTemplates = () => {
   }, [rankingBefore]);
 
   const resetDate = (when, button) => {
+    //이건 어디에 위치해야할까?
     //button 값은 0,1,2 -> 월, 주, 일
     //기준 날짜에 따라서 랭킹 다시 갱신
     if (!pressed[button]) {
@@ -65,12 +66,7 @@ const RankingTemplates = () => {
   };
 
   if (rankLoading) {
-    return (
-      // <View style={styles_templates.container}>
-      //   <ActivityIndicator size="large" />
-      // </View>
-      <LoadingIndicator />
-    );
+    return <LoadingIndicator />;
   }
   return (
     <SafeAreaView style={styles_templates.container}>

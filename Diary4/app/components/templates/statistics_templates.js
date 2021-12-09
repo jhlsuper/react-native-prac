@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import firestore from '@react-native-firebase/firestore';
-import _, {forEach} from 'underscore';
+import {View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import UserInfo from '../../components/molecules/userInfo';
 import TitleText from '../molecules/titleText';

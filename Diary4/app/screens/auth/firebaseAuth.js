@@ -34,7 +34,7 @@ export const signIn = props => {
     .signInWithEmailAndPassword(props.email, props.password)
     .then(() => {
       console.log('로그인완료');
-      storeData('email', email);
+      storeData('userEmail', props.email);
       return true;
     })
     .catch(error => {

@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
-import moment from 'moment';
 import _, {size, times} from 'lodash';
+import moment from 'moment';
+import {today, nextDay, weekBefore, monthBefore} from '../utils/dates';
 export function setDates(userEmail, dateNCount) {
   //날짜 count값 배열에 추가
   firestore()
@@ -12,6 +13,26 @@ export function setDates(userEmail, dateNCount) {
     });
   console.log('data', dateNCount);
 }
+//서버에 프로필사진 저장
+export function setProfileImage(userEmail, uri) {
+  firestore().collection('users').doc(userEmail).update({profileImage: uri});
+}
+//서버에 프로필사진 가져오기
+export const getUserProfileImage = async (email, setUri) => {
+  try {
+    firestore()
+      .collection('users')
+      .doc(email)
+      .get()
+      .then(querySnapshot => {
+        const {profileImage} = querySnapshot.data();
+        console.log(profileImage);
+        setUri(profileImage);
+      });
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export function delDates(userEmail, dateNCount) {
   //해당 날짜와 count값 동일하면 삭제
@@ -54,6 +75,7 @@ export function getCount(userEmail, fun) {
       // console.log('userData', userData);
     });
 }
+
 //통계 데이터 받아오기
 export const getStatisticsData = async (
   email,
@@ -185,14 +207,14 @@ export const getRank = async (
   }
 };
 
-export let todayLong = new Date();
-export let today =
-  todayLong.getFullYear() +
-  '-' +
-  parseInt(todayLong.getMonth() + 1) +
-  '-' +
-  todayLong.getDate();
-export let nextDay = moment(todayLong).add(1, 'day').format('YYYY-MM-DD');
+// export let todayLong = new Date();
+// export let today =
+//   todayLong.getFullYear() +
+//   '-' +
+//   parseInt(todayLong.getMonth() + 1) +
+//   '-' +
+//   todayLong.getDate();
+// export let nextDay = moment(todayLong).add(1, 'day').format('YYYY-MM-DD');
 
-export let weekBefore = moment(todayLong).add(-7, 'day').format('YYYY-MM-DD');
-export let monthBefore = moment(todayLong).add(-1, 'M').format('YYYY-MM-DD');
+// export let weekBefore = moment(todayLong).add(-7, 'day').format('YYYY-MM-DD');
+// export let monthBefore = moment(todayLong).add(-1, 'M').format('YYYY-MM-DD');

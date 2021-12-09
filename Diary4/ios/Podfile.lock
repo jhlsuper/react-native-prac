@@ -768,6 +768,8 @@ PODS:
     - React-Core
   - react-native-cameraroll (4.1.2):
     - React-Core
+  - react-native-image-picker (4.4.2):
+    - React-Core
   - react-native-safe-area-context (3.3.2):
     - React-Core
   - React-perflogger (0.66.3)
@@ -938,6 +940,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -1040,6 +1043,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-cameraroll:
     :path: "../node_modules/@react-native-community/cameraroll"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -1141,6 +1146,7 @@ SPEC CHECKSUMS:
   React-logger: e522e76fa3e9ec3e7d7115b49485cc065cf4ae06
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-cameraroll: 2957f2bce63ae896a848fbe0d5352c1bd4d20866
+  react-native-image-picker: 6a18bc5c053ba096ec9b027bd497129cfda30e6b
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   React-perflogger: 73732888d37d4f5065198727b167846743232882
   React-RCTActionSheet: 96c6d774fa89b1f7c59fc460adc3245ba2d7fd79
@@ -1168,6 +1174,6 @@ SPEC CHECKSUMS:
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
   YoutubePlayer-in-WKWebView: 4fca3b4f6f09940077bfbae7bddb771f2b43aacd
 
-PODFILE CHECKSUM: 4e4c6e42930345ea71686f36e3b27197500005ea
+PODFILE CHECKSUM: 446eecd40eee81387e852827f8678bc7497e2708
 
 COCOAPODS: 1.11.2

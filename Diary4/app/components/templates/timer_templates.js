@@ -5,7 +5,6 @@ import Timer from '../organisms/timer';
 import {PermissionsAndroid, Text, View} from 'react-native';
 import styles_templates from './styles_templates';
 import auth from '@react-native-firebase/auth';
-import CameraRoll from '@react-native-community/cameraroll';
 import {
   setDates,
   delDates,
@@ -18,24 +17,20 @@ import {SECOND} from '../../i18n/msg';
 
 const Timer_Templates = () => {
   const user = auth().currentUser;
-  const [stop, setStop] = useState(false);
   const [count, setCounts] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [stop, setStop] = useState(false);
   const [email, setEmail] = useState('');
   const [acount, setaCount] = useState(count);
-  const [modalVisible, setModalVisible] = useState(false);
   const [asyncToday, setToday] = useState();
 
-  // console.log(data);
   useEffect(() => {
     getCount(user.email, setCounts);
     getData('Date', setToday);
     getAllData();
-    // hasAndroidPermission();
-
-    // getData('email', setEmail);
   }, []);
   console.log('count', count);
-  // console.log(asyncToday);
+
   useEffect(() => {
     console.log(count);
     //count 업데이트 되면 map object 업데이트해주기

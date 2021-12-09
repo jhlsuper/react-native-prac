@@ -81,3 +81,7 @@ export const WHITE = 'white';
 
 export const RED_TEXT = '#C00000';
 export const BLUE_TEXT = '#0070C0';
+
+//MYPAGE
+
+export const EMAIL = '이메일 : ';

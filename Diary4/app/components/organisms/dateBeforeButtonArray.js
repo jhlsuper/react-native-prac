@@ -1,18 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
 import DateBeforeButton from '../molecules/dateBeforeButton';
-import {monthBefore, weekBefore, today} from '../../database/firestore';
+import {monthBefore, weekBefore, today} from '../../utils/dates';
 import {DAY, MONTH, WEEK} from '../../i18n/msg';
+import styles_organisms from './styles_organisms';
 const DateBeforeButtonArray = props => {
   return (
-    <View
-      style={{
-        flex: 1,
-
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
+    <View style={styles_organisms.flexrow}>
       <DateBeforeButton
         text={MONTH}
         index={0}

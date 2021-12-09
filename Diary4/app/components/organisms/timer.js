@@ -44,7 +44,6 @@ const Timer = props => {
   return (
     <View style={styles_organisms.press}>
       <Text style={styles_organisms.textWhite75}>
-        {' '}
         {Math.floor(second / 60)} 분 : {second % 60} 초
       </Text>
       <View style={styles_organisms.press}>

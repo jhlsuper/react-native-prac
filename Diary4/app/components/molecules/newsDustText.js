@@ -5,8 +5,6 @@ import {BAD, GOOD, NEWS_UNIT, NORMAL, VERY_BAD} from '../../i18n/msg';
 import styles_molecules from './styles_molecules';
 const NewsDustText = props => {
   console.log('props level', props.level);
-  let content;
-  const levelArray = ['좋음', '보통', '나쁨', '매우나쁨'];
 
   return (
     <View style={styles_molecules.contentView_}>

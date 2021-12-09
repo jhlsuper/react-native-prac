@@ -19,13 +19,7 @@ const DustData = props => {
         {/* <Text style={styles_organisms.titleText}># 미세먼지</Text> */}
         <TitleText title={DUST_TITLE} />
       </View>
-      <View
-        style={{
-          flex: 0.7,
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
-        }}>
+      <View style={styles_organisms.flex7}>
         <StandardText where={props.where} dateTime={props.dust.dateTime} />
       </View>
 
