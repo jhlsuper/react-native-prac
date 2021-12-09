@@ -154,4 +154,12 @@ export default styles_molecules = StyleSheet.create({
     fontSize: 30,
     color: 'lightgray',
   },
+  logoutText: {
+    color: 'white',
+  },
+  button: {
+    padding: 10,
+    backgroundColor: 'black',
+    borderRadius: 7,
+  },
 });

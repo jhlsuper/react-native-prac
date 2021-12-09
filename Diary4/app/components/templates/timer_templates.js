@@ -25,40 +25,13 @@ const Timer_Templates = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [asyncToday, setToday] = useState();
 
-  const [data, setData] = '';
-  async function hasAndroidPermission() {
-    const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
-
-    const hasPermission = await PermissionsAndroid.check(permission);
-    if (hasPermission) {
-      return true;
-    }
-
-    const status = await PermissionsAndroid.request(permission);
-    return status === 'granted';
-  }
-
-  const getGallary = () => {
-    CameraRoll.getPhotos({
-      first: 3,
-      assetType: 'Photos',
-    })
-      .then(res => {
-        // setData(res.edges);
-        console.log(res.edges);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     getCount(user.email, setCounts);
     getData('Date', setToday);
     getAllData();
     // hasAndroidPermission();
-    getGallary();
+
     // getData('email', setEmail);
   }, []);
   console.log('count', count);

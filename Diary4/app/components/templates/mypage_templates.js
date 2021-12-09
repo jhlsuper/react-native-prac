@@ -1,20 +1,50 @@
-import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, StyleSheet, View} from 'react-native';
 import {logOut} from '../../store/actions/user_actions';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import UserEmail from '../molecules/userEmail';
+import styles_templates from './styles_templates';
+import TitleText from '../molecules/titleText';
+import LogOutButton from '../molecules/logoutButton';
+
 const MyPage_Templates = () => {
   // Set an initializing state whilst Firebase connects
+  const [data, setData] = useState('');
+  async function hasAndroidPermission() {
+    const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
 
+    const hasPermission = await PermissionsAndroid.check(permission);
+    if (hasPermission) {
+      return true;
+    }
+
+    const status = await PermissionsAndroid.request(permission);
+    return status === 'granted';
+  }
+
+  const getGallary = () => {
+    CameraRoll.getPhotos({
+      first: 3,
+      assetType: 'Photos',
+    })
+      .then(res => {
+        // setData(res.edges);
+        console.log(res.edges);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  // getGallary();
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.titleText}>마이 페이지</Text>
-      {/* <MyPage /> */}
-      <MyPage_Templates />
-      <TouchableOpacity style={styles.button} onPress={logOut}>
-        <Text style={styles.logoutText}>로그 아웃</Text>
-      </TouchableOpacity>
+    <SafeAreaView style={styles_templates.container}>
+      <TitleText title={'마이페이지'} />
+      <UserEmail />
+
+      <View style={styles_templates.bottom}>
+        <LogOutButton text={'로그아웃'} />
+      </View>
     </SafeAreaView>
   );
 };

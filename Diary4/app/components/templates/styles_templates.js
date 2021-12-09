@@ -42,7 +42,7 @@ export default styles_templates = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: MAIN_BACKGROUND,
   },
@@ -64,5 +64,11 @@ export default styles_templates = StyleSheet.create({
   },
   rankginContainer: {
     flex: 7,
+  },
+
+  //mypage
+  bottom: {
+    flex: 1,
+    justifyContent: 'flex-end',
   },
 });

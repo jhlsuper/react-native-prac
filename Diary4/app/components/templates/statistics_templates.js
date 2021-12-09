@@ -19,7 +19,7 @@ const Statistics_Templates = () => {
   const [loading, setLoading] = useState(true);
   const [totalTime, setTotalTime] = useState(0);
   const [mostRecent, setMostRecent] = useState();
-
+  console.log('statstat', userData);
   useEffect(() => {
     getStatisticsData(
       loggedEmail,
